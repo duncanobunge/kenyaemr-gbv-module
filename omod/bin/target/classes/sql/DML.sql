@@ -1,10 +1,8 @@
-use openmrs;
-SET @OLD_SQL_MODE=@@SQL_MODE;
-SET SQL_MODE='';
+SET @OLD_SQL_MODE=@@SQL_MODE $$
+SET SQL_MODE='' $$
 
 -- Populate etl gbv consenting:
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_consenting;
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_consenting $$
 CREATE PROCEDURE sp_populate_etl_gbv_consenting()
 BEGIN
 SELECT "Processing GBV PRC Consenting data", CONCAT("Time: ", NOW());
@@ -60,11 +58,9 @@ where e.voided=0
 group by e.patient_id, e.encounter_id;
 SELECT "Completed processing GBV PRC consent data ", CONCAT("Time: ", NOW());
 END $$
-DELIMITER ;
 
 -- Populate etl counsellingencounter :
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_counsellingencounter;
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_counsellingencounter$$
 CREATE PROCEDURE sp_populate_etl_gbv_counsellingencounter()
 BEGIN
 SELECT "Processing GBV counsellingencounter data", CONCAT("Time: ", NOW());
@@ -123,11 +119,10 @@ where e.voided=0
 group by e.patient_id, e.encounter_id;
 SELECT "Completed processing GBV counsellingencounter  data ", CONCAT("Time: ", NOW());
 END $$
-DELIMITER ;
+
 
 -- populate etl perpetratorencounter consent:
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_perpetratorencounter;
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_perpetratorencounter $$
 CREATE PROCEDURE sp_populate_etl_gbv_perpetratorencounter()
 BEGIN
 SELECT "Processing GBV perpetrator encounter data", CONCAT("Time: ", NOW());
@@ -192,11 +187,11 @@ where e.voided=0
 group by e.patient_id, e.encounter_id;
 SELECT "Completed processing GBV perpetrator encounter data ", CONCAT("Time: ", NOW());
 END $$
-DELIMITER ;
+
 
 -- Populate etl GBV legal forms:
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_legal_encounter; 
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_legal_encounter $$
+
 CREATE PROCEDURE sp_populate_etl_gbv_legal_encounter()
 BEGIN
 SELECT "Processing GBV legal data", CONCAT("Time: ", NOW());
@@ -262,16 +257,14 @@ group by e.patient_id, e.encounter_id;
 
 SELECT "Completed processing GBV legal encounter data ", CONCAT("Time: ", NOW());
 END $$
-DELIMITER ;
 
 
 -- populate etl gbv pepmanagementforsurvivor:
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagementforsurvivor; 
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagementforsurvivor $$
 CREATE PROCEDURE sp_populate_etl_gbv_pepmanagementforsurvivor()
 BEGIN
 SELECT "Processing gbv_pepmanagementforsurvivor test data", CONCAT("Time: ", NOW());
-insert into kenyaemr_etl.etl_gbv_pepmanagementforsurvivor(
+insert into kenyaemr_etl.etl_gbv_pepmanagementforsurvivors(
       uuid,
       encounter_id,
       visit_id ,
@@ -295,7 +288,7 @@ insert into kenyaemr_etl.etl_gbv_pepmanagementforsurvivor(
       compulsory_hiv_test,
       compulsory_hiv_test_result,
       perpetrator_file_number,
-      state_of_patient ,
+      state_of_patient,
       state_of_patient_clothing ,
       examination_genitalia ,
       other_injuries ,
@@ -392,12 +385,12 @@ group by e.patient_id, e.encounter_id;
 
 SELECT "Completed processing gbv_pepmanagementforsurvivor data ", CONCAT("Time: ", NOW());
 END $$
-DELIMITER ;
+
 
 
 -- Populate etl_gbv_pepmanagement_nonoccupationalexposure--
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagement_nonoccupationalexposure;
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagement_nonoccupationalexposure $$
+
 CREATE PROCEDURE sp_populate_etl_gbv_pepmanagement_nonoccupationalexposure()
 BEGIN
 SELECT "Processing gbv_pepmanagement_nonoccupationalexposure data", CONCAT("Time: ", NOW());
@@ -465,11 +458,10 @@ group by e.patient_id, e.encounter_id;
 
 SELECT "Completed processing gbv_pepmanagement_nonoccupationalexposure data ", CONCAT("Time: ", NOW());
 END $$
-DELIMITER ;
+
 
 -- Populate etl gbv_linkage--
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_linkage 
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_linkage $$
 CREATE PROCEDURE sp_populate_etl_gbv_linkage()
 BEGIN
 SELECT "Processing gbv_linkage data", CONCAT("Time: ", NOW());
@@ -537,11 +529,10 @@ group by e.patient_id, e.encounter_id;
 
 SELECT "Completed processing gbv_linkage data ", CONCAT("Time: ", NOW());
 END $$
-DELIMITER ;
+
 
 -- Populate etl gbv_occupationalexposure--
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_occupationalexposure 
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_occupationalexposure $$
 CREATE PROCEDURE sp_populate_etl_gbv_occupationalexposure()
 BEGIN
 SELECT "Processing gbv_occupationalexposure data", CONCAT("Time: ", NOW());
@@ -659,11 +650,11 @@ group by e.patient_id, e.encounter_id;
 
 SELECT "Completed processing gbv_occupationalexposure data ", CONCAT("Time: ", NOW());
 END $$
-DELIMITER ;
+
 
 -- Populate etl gbv_pepmanagement_followup:GBVRC
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagement_followup; 
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagement_followup $$
+
 CREATE PROCEDURE sp_populate_etl_gbv_pepmanagement_followup()
 BEGIN
 SELECT "Processing etl_gbv_pepmanagement_followup data", CONCAT("Time: ", NOW());
@@ -727,12 +718,10 @@ group by e.patient_id, e.encounter_id;
 SELECT "Completed processing pepmanagement_followup data ", CONCAT("Time: ", NOW());
 END $$
 
-DELIMITER ;
-
 
 -- Populate etl gbv_physicalemotional_violence:GBVRC
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_physicalemotional_violence;
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_physicalemotional_violence $$
+
 CREATE PROCEDURE sp_populate_etl_gbv_physicalemotional_violence()
 BEGIN
 SELECT "Processing etl_gbv_physicalemotional_violence data", CONCAT("Time: ", NOW());
@@ -806,16 +795,15 @@ group by e.patient_id, e.encounter_id;
 
 SELECT "Completed processing physical_emotional_violence data ", CONCAT("Time: ", NOW());
 END $$
-DELIMITER ;
 
 -- end of dml procedures
 
-SET sql_mode=@OLD_SQL_MODE ;
+SET sql_mode=@OLD_SQL_MODE $$
 
 -- ------------------------------------------- running all procedures -----------------------------
 
-DROP PROCEDURE IF EXISTS sp_build_gbv_tables; 
-DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_build_gbv_tables $$
+
 CREATE PROCEDURE sp_build_gbv_tables()
 BEGIN
 DECLARE populate_script_id INT(11);
@@ -839,7 +827,6 @@ UPDATE kenyaemr_etl.etl_script_status SET stop_time=NOW() where id= populate_scr
 
 SELECT "Completed first time setup", CONCAT("Time: ", NOW());
 END $$
-DELIMITER ;
 
 
 

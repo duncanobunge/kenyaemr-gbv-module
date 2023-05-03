@@ -1,8 +1,7 @@
--- SET @OLD_SQL_MODE=@@SQL_MODE $$
--- SET SQL_MODE='' $$
+SET @OLD_SQL_MODE=@@SQL_MODE $$
+SET SQL_MODE='' $$
 
 -- Populate etl gbv consenting:
-
 DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_consenting $$
 CREATE PROCEDURE sp_populate_etl_gbv_consenting()
 BEGIN
@@ -60,13 +59,12 @@ group by e.patient_id, e.encounter_id;
 SELECT "Completed processing GBV PRC consent data ", CONCAT("Time: ", NOW());
 END $$
 
-
 -- Populate etl counsellingencounter :
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_counsellingencounter $$
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_counsellingencounter$$
 CREATE PROCEDURE sp_populate_etl_gbv_counsellingencounter()
 BEGIN
 SELECT "Processing GBV counsellingencounter data", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_counsellingencounter(
+insert into kenyaemr_etl.etl_gbv_counsellingencounter(
                                         uuid,
                                         encounter_id,
                                         visit_id,
@@ -98,7 +96,8 @@ select
     max(if(o.concept_id=167165,(case o.value_coded when 158358 then "physical violence" when 118688 then "emotional violence"
      when 167085 then "sgbv" when 164843 then "occupational exposure" when 164837 then "non-occupational exposure"
      else "" end),null)) as type_of_exposure,
-    max(if(o.concept_id=1724,(case o.value_coded when 162080 then "Initial visit" when 1722 then "2nd visit"
+
+   max(if(o.concept_id=1724,(case o.value_coded when 162080 then "Initial visit" when 1722 then "2nd visit"
         when 165307 then "3rd visit" when 1721 then "4th visit" when 1723 then "5th visit"
         else "" end),null)) as visit_no,
     max(if(o.concept_id=165138,o.value_text,null)) as presenting_issue,
@@ -127,7 +126,7 @@ DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_perpetratorencounter $$
 CREATE PROCEDURE sp_populate_etl_gbv_perpetratorencounter()
 BEGIN
 SELECT "Processing GBV perpetrator encounter data", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_perpetratorencounter(
+insert into kenyaemr_etl.etl_gbv_perpetratorencounter(
                               uuid,
                               encounter_id ,
                               visit_id,
@@ -189,12 +188,14 @@ group by e.patient_id, e.encounter_id;
 SELECT "Completed processing GBV perpetrator encounter data ", CONCAT("Time: ", NOW());
 END $$
 
+
 -- Populate etl GBV legal forms:
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_legal_encounter $$ 
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_legal_encounter $$
+
 CREATE PROCEDURE sp_populate_etl_gbv_legal_encounter()
 BEGIN
 SELECT "Processing GBV legal data", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_legal(
+insert into kenyaemr_etl.etl_gbv_legal(
                 uuid ,
                 encounter_id ,
                 visit_id,
@@ -210,6 +211,7 @@ INSERT INTO kenyaemr_etl.etl_gbv_legal(
                 investigating_officer_phonenumber,
                 nature_of_action_taken,
                 action_taken_description,
+                referral_from_gbvrc,
                 in_court ,
                 criminal_suit_no ,
                 case_details,
@@ -258,11 +260,11 @@ END $$
 
 
 -- populate etl gbv pepmanagementforsurvivor:
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagementforsurvivor $$ 
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagementforsurvivor $$
 CREATE PROCEDURE sp_populate_etl_gbv_pepmanagementforsurvivor()
 BEGIN
 SELECT "Processing gbv_pepmanagementforsurvivor test data", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_pepmanagementforsurvivors(
+insert into kenyaemr_etl.etl_gbv_pepmanagementforsurvivors(
       uuid,
       encounter_id,
       visit_id ,
@@ -286,7 +288,7 @@ INSERT INTO kenyaemr_etl.etl_gbv_pepmanagementforsurvivors(
       compulsory_hiv_test,
       compulsory_hiv_test_result,
       perpetrator_file_number,
-      state_of_patient ,
+      state_of_patient,
       state_of_patient_clothing ,
       examination_genitalia ,
       other_injuries ,
@@ -295,7 +297,7 @@ INSERT INTO kenyaemr_etl.etl_gbv_pepmanagementforsurvivors(
       hiv_pre_test_counselling_result,
       given_pep,
       referred_to_psc,
-      PDT_test_result,
+      PDT_result,
       emergency_pills,
       emergency_pills_specify,
       sti_prophylaxis_trx,
@@ -306,8 +308,8 @@ INSERT INTO kenyaemr_etl.etl_gbv_pepmanagementforsurvivors(
       date_given,
       HBsAG_result,
       LFTs_ALT_result,
-      creatinine_result,
-      other_specify_result,
+      cretinine_result,
+      other_test_specify_result,
       tca_date,
       voided
 )
@@ -341,6 +343,7 @@ select
     max(if(o.concept_id=163045,o.value_text,null)) as state_of_patient_clothing,
     max(if(o.concept_id=160971,o.value_text,null)) as examination_genitalia,
     max(if(o.concept_id=165092,o.value_text,null)) as other_injuries,
+    max(if(o.concept_id=163045,o.value_text,null)) as state_of_patient_clothing,
     max(if(o.concept_id=166141,(case o.value_coded when 703 then "Reactive" when 664 then "Non Reactive"
     when 1138 then "Indeterminate" else "" end),null)) as high_vagina_anal_swab_result,
     max(if(o.concept_id=299,(case o.value_coded when 1229 then "Non Reactive" when 1228 then "Reactive"
@@ -366,8 +369,8 @@ select
     max(if(o.concept_id=161472,(case o.value_coded when 664 then "Non Reactive" when 1066 then "Reactive"
         else "" end),null)) as HBsAG_result,
     max(if(o.concept_id=654,o.value_numeric,null)) as LFTs_ALT_result,
-    max(if(o.concept_id=790,o.value_numeric,null)) as creatinine_result,
-    max(if(o.concept_id=160987,o.value_text,null)) as  other_specify_result,
+    max(if(o.concept_id=790,o.value_numeric,null)) as cretinine_result,
+    max(if(o.concept_id=160987,o.value_text,null)) as  other_test_specify_result,
     max(if(o.concept_id=160753,date(o.value_datetime),null)) as tca_date,
     e.voided
 from encounter e
@@ -384,12 +387,14 @@ SELECT "Completed processing gbv_pepmanagementforsurvivor data ", CONCAT("Time: 
 END $$
 
 
+
 -- Populate etl_gbv_pepmanagement_nonoccupationalexposure--
 DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagement_nonoccupationalexposure $$
+
 CREATE PROCEDURE sp_populate_etl_gbv_pepmanagement_nonoccupationalexposure()
 BEGIN
 SELECT "Processing gbv_pepmanagement_nonoccupationalexposure data", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_pepmanagement_nonoccupationalexposure(
+insert into kenyaemr_etl.etl_gbv_pepmanagement_nonoccupationalexposure(
                   uuid,
                   encounter_id,
                   visit_id,
@@ -427,7 +432,7 @@ select
     max(if(o.concept_id=5090,o.value_numeric,null)) as height,
     max(if(o.concept_id=165060, case o.value_coded when 165059 then 'Condom burst' when 127910 then 'Rape'
     when 159218 then 'unprotected sex' when 147273 then 'Human bite' when 137655 then 'Cut wound' when 1536 then 'Needle prick'
-    when 145691 then 'Defilement' when 5622 then 'other' else '' end,null)) as type_of_exposure,
+    when 145691 then Defilement when 5622 then other else '' end,null)) as type_of_exposure,
     max(if(o.concept_id=165138,o.value_text,null)) as specify_other_exposure,
     max(if(o.concept_id=159427,case o.value_coded when 703 then "Reactive" when 664 then "Non Reactive" else "" end,null)) as hiv_test_result,
     max(if(o.concept_id=1263,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as starter_pack_given,
@@ -457,14 +462,12 @@ END $$
 
 -- Populate etl gbv_linkage--
 DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_linkage $$
-
 CREATE PROCEDURE sp_populate_etl_gbv_linkage()
 BEGIN
 SELECT "Processing gbv_linkage data", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_linkage(
+insert into kenyaemr_etl.etl_gbv_linkage(
         uuid,
         encounter_id ,
-        visit_id,
         patient_id  ,
         location_id ,
         visit_date,
@@ -530,11 +533,10 @@ END $$
 
 -- Populate etl gbv_occupationalexposure--
 DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_occupationalexposure $$
-
 CREATE PROCEDURE sp_populate_etl_gbv_occupationalexposure()
 BEGIN
 SELECT "Processing gbv_occupationalexposure data", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_pepmanagement_occupationalexposure(
+insert into kenyaemr_etl.gbv_occupationalexposure(
                      uuid,
                      encounter_id,
                      visit_id,
@@ -651,11 +653,12 @@ END $$
 
 
 -- Populate etl gbv_pepmanagement_followup:GBVRC
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagement_followup $$ 
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagement_followup $$
+
 CREATE PROCEDURE sp_populate_etl_gbv_pepmanagement_followup()
 BEGIN
 SELECT "Processing etl_gbv_pepmanagement_followup data", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_pepmanagement_followup(
+insert into kenyaemr_etl.etl_gbv_pepmanagement_followup(
                           uuid,
                           encounter_id,
                           visit_id,
@@ -716,15 +719,13 @@ SELECT "Completed processing pepmanagement_followup data ", CONCAT("Time: ", NOW
 END $$
 
 
-
-
 -- Populate etl gbv_physicalemotional_violence:GBVRC
 DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_physicalemotional_violence $$
 
 CREATE PROCEDURE sp_populate_etl_gbv_physicalemotional_violence()
 BEGIN
 SELECT "Processing etl_gbv_physicalemotional_violence data", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_physicalemotional_violence(
+insert into kenyaemr_etl.etl_gbv_physicalemotional_violence(
             uuid,
             encounter_id,
             visit_id,
@@ -750,7 +751,7 @@ INSERT INTO kenyaemr_etl.etl_gbv_physicalemotional_violence(
             child_protection,
             child_protection_comment,
             referred_to,
-            -- scheduled_appointment_date,
+            scheduled_appointment_date,
             voided
 )
 select
@@ -795,15 +796,14 @@ group by e.patient_id, e.encounter_id;
 SELECT "Completed processing physical_emotional_violence data ", CONCAT("Time: ", NOW());
 END $$
 
-
 -- end of dml procedures
 
 SET sql_mode=@OLD_SQL_MODE $$
 
 -- ------------------------------------------- running all procedures -----------------------------
 
-DROP PROCEDURE IF EXISTS sp_build_gbv_tables $$ 
--- DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_build_gbv_tables $$
+
 CREATE PROCEDURE sp_build_gbv_tables()
 BEGIN
 DECLARE populate_script_id INT(11);
@@ -811,7 +811,7 @@ SELECT "Beginning first time setup", CONCAT("Time: ", NOW());
 INSERT INTO kenyaemr_etl.etl_script_status(script_name, start_time) VALUES('initial_population_of_gbv_tables', NOW());
 SET populate_script_id = LAST_INSERT_ID();
 
-CALL sp_populate_etl_gbv_consenting(); 
+CALL sp_populate_etl_gbv_consenting();
 CALL sp_populate_etl_gbv_legal_encounter();
 CALL sp_populate_etl_gbv_pepmanagementforsurvivor();
 CALL sp_populate_etl_gbv_pepmanagement_nonoccupationalexposure();
@@ -823,11 +823,10 @@ CALL sp_populate_etl_gbv_linkage();
 CALL sp_populate_etl_gbv_physicalemotional_violence();
 
 
-UPDATE kenyaemr_etl.etl_script_status SET stop_time=NOW() where id=populate_script_id;
+UPDATE kenyaemr_etl.etl_script_status SET stop_time=NOW() where id= populate_script_id;
 
 SELECT "Completed first time setup", CONCAT("Time: ", NOW());
 END $$
-
 
 
 

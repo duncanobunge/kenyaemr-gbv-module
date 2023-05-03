@@ -11,7 +11,7 @@ DECLARE script_id INT(11);
 INSERT INTO kenyaemr_etl.etl_script_status(script_name, start_time) VALUES('create_gbv_etl_tables', NOW());
 SET script_id = LAST_INSERT_ID();
 
-DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_prc_consenting;
+DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_consenting;
 DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_physicalemotional_violence;
 DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_legal;
 DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_linkage;
@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_perpetratorencounter;
 -- DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_postrapecare;
 
 -------------- create table kenyaemr_etl.etl_gbv_prc_consenting-----------------------
-CREATE TABLE kenyaemr_etl.etl_gbv_prc_consenting(
+CREATE TABLE kenyaemr_etl.etl_gbv_consenting(
       uuid CHAR(38),
       encounter_id INT(11) NOT NULL PRIMARY KEY,
       visit_id INT(11) DEFAULT NULL,
@@ -33,6 +33,7 @@ CREATE TABLE kenyaemr_etl.etl_gbv_prc_consenting(
       location_id INT(11) DEFAULT NULL,
       visit_date DATE,
       encounter_provider INT(11),
+      date_created DATE,
       medical_examination VARCHAR(10),
       collect_sample VARCHAR(10),
       provide_evidence VARCHAR(10),
@@ -52,6 +53,37 @@ CREATE TABLE kenyaemr_etl.etl_gbv_prc_consenting(
       INDEX(patient_id, visit_date)
     );
   SELECT "Successfully created gbv prc consenting table";
+  
+------------- create table etl_gbv_counsellingencounter-----------------------
+    CREATE TABLE kenyaemr_etl.etl_gbv_counsellingencounter(
+          uuid CHAR(38),
+          encounter_id INT(11) NOT NULL PRIMARY KEY,
+          visit_id INT(11) DEFAULT NULL,
+          patient_id INT(11) NOT NULL ,
+          location_id INT(11) DEFAULT NULL,
+          visit_date DATE,
+          encounter_provider INT(11),
+          date_created DATE,
+          prc_number VARCHAR(20),
+          type_of_exposure VARCHAR(30),
+          visit_no VARCHAR(10),
+          presenting_issue VARCHAR(200),
+          emerging_issue VARCHAR(200),
+          hiv_test_result VARCHAR(10),
+          plan_of_action VARCHAR(200),
+          tca_date DATE,
+          voided INT(11),
+          CONSTRAINT FOREIGN KEY (patient_id) REFERENCES kenyaemr_etl.etl_patient_demographics(patient_id),
+          CONSTRAINT unique_uuid UNIQUE(uuid),
+          INDEX(visit_date),
+          INDEX(visit_id),
+          INDEX(encounter_id),
+          INDEX(patient_id),
+          INDEX(patient_id, visit_date)
+        );
+
+      SELECT "Successfully created gbv_counsellingencounter review table";
+
 -------------- create table kenyaemr_etl.etl_gbv_physicalemotional_violence-----------------------
 
 CREATE TABLE kenyaemr_etl.etl_gbv_physicalemotional_violence(
@@ -341,35 +373,6 @@ CREATE TABLE kenyaemr_etl.etl_gbv_pepmanagement_nonoccupationalexposure(
               INDEX(patient_id, visit_date)
       );
     SELECT "Successfully created kenyaemr_etl.etl_gbv_pepmanagement_followup";
-        ------------- create table etl_gbv_counsellingencounter-----------------------
-    CREATE TABLE kenyaemr_etl.etl_gbv_counsellingencounter(
-          uuid CHAR(38),
-          encounter_id INT(11) NOT NULL PRIMARY KEY,
-          visit_id INT(11) DEFAULT NULL,
-          patient_id INT(11) NOT NULL ,
-          location_id INT(11) DEFAULT NULL,
-          visit_date DATE,
-          encounter_provider INT(11),
-          date_created DATE,
-          prc_number VARCHAR(20),
-          type_of_exposure VARCHAR(30),
-          visit_no VARCHAR(10),
-          presenting_issue VARCHAR(200),
-          emerging_issue VARCHAR(200),
-          hiv_test_result VARCHAR(10),
-          plan_of_action VARCHAR(200),
-          tca_date DATE,
-          voided INT(11),
-          CONSTRAINT FOREIGN KEY (patient_id) REFERENCES kenyaemr_etl.etl_patient_demographics(patient_id),
-          CONSTRAINT unique_uuid UNIQUE(uuid),
-          INDEX(visit_date),
-          INDEX(visit_id),
-          INDEX(encounter_id),
-          INDEX(patient_id),
-          INDEX(patient_id, visit_date)
-        );
-
-      SELECT "Successfully created gbv_counsellingencounter review table";
 
           ------------- create table etl_gbv_perpetratorencounter-----------------------
       CREATE TABLE kenyaemr_etl.etl_gbv_perpetratorencounter(

@@ -11,7 +11,7 @@ DECLARE script_id INT(11);
 INSERT INTO kenyaemr_etl.etl_script_status(script_name, start_time) VALUES('create_gbv_etl_tables', NOW());
 SET script_id = LAST_INSERT_ID();
 
-DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_prc_consenting;
+DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_consenting;
 DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_physicalemotional_violence;
 DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_legal;
 DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_linkage;
@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_perpetratorencounter;
 -- DROP TABLE IF EXISTS kenyaemr_etl.etl_gbv_postrapecare;
 
 -------------- create table kenyaemr_etl.etl_gbv_prc_consenting-----------------------
-CREATE TABLE kenyaemr_etl.etl_gbv_prc_consenting(
+CREATE TABLE kenyaemr_etl.etl_gbv_consenting(
       uuid CHAR(38),
       encounter_id INT(11) NOT NULL PRIMARY KEY,
       visit_id INT(11) DEFAULT NULL,

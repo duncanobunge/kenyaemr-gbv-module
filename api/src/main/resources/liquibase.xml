@@ -43,21 +43,21 @@
     referencedColumnNames="user_id" />
     </changeSet> -->
 
-    <changeSet id="${project.parent.artifactId}-20232501-1715" author="dobunge">
+    <changeSet id="${project.parent.artifactId}-20232504-1715" author="dobunge">
         <comment>
             Execute DDL script for ETL
         </comment>
         <sqlFile path="sql/DDL.sql" endDelimiter="\$\$" stripComments="true" />
     </changeSet>
 
-    <changeSet id="${project.parent.artifactId}-20232501-1725" author="dobunge">
+    <changeSet id="${project.parent.artifactId}-20232504-1725" author="dobunge">
         <comment>
             Execute DML script for ETL
         </comment>
         <sqlFile path="sql/DML.sql" endDelimiter="\$\$" stripComments="true" />
     </changeSet>
 
-    <changeSet id="${project.parent.artifactId}-20232501-1735" author="dobunge">
+    <changeSet id="${project.parent.artifactId}-20232504-1735" author="dobunge">
         <comment>
             Execute Scheduled Updates script for ETL
         </comment>

@@ -402,8 +402,8 @@ select
 	max(if(o.concept_id=165349,o.value_datetime,null)) as date_time_incidence,
     max(if(o.concept_id=165230,o.value_text,null)) as perpetrator_name,
     max(if(o.concept_id=167214,o.value_text,null)) as relation_to_perpetrator,
-    max(if(o.concept_id=164848,(case o.value_coded when 1065 then "Done" when 1066 then "Not Done" else "" end),null)) as compulsory_hiv_test
-	max(if(o.concept_id=159427,(case o.value_coded when 703 then "Not Reactive" when 664 then "Reactive" else "" end),null)) as compulsory_hiv_test_result
+    max(if(o.concept_id=164848,(case o.value_coded when 1065 then "Done" when 1066 then "Not Done" else "" end),null)) as compulsory_hiv_test,
+	max(if(o.concept_id=159427,(case o.value_coded when 703 then "Not Reactive" when 664 then "Reactive" else "" end),null)) as compulsory_hiv_test_result,
     max(if(o.concept_id=1639,o.value_text,null)) as perpetrator_file_number,
     max(if(o.concept_id=163042,o.value_text,null)) as state_of_patient,
     max(if(o.concept_id=163045,o.value_text,null)) as state_of_patient_clothing,
@@ -411,11 +411,9 @@ select
     max(if(o.concept_id=165092,o.value_text,null)) as other_injuries,
     max(if(o.concept_id=163045,o.value_text,null)) as state_of_patient_clothing,
     max(if(o.concept_id=166141,(case o.value_coded when 703 then "Reactive" when 664 then "Non Reactive"
-    when 1138 then "Indeterminate" else "" end),null)) as high_vagina_anal_swab_result
-    max(if(o.concept_id=299,(case o.value_coded when 1229 then "Non Reactive" when 1228 then "Reactive"
-    else "" end),null)) as RPR_VDRL_result,
-    max(if(o.concept_id=163760,(case o.value_coded when 664 then "Non Reactive" when 703 then "Reactive"
-    else "" end),null)) as hiv_pre_test_counselling_result,
+    when 1138 then "Indeterminate" else "" end),null)) as high_vagina_anal_swab_result,
+    max(if(o.concept_id=299,(case o.value_coded when 1229 then "Non Reactive" when 1228 then "Reactive" else "" end),null)) as RPR_VDRL_result,
+    max(if(o.concept_id=163760,(case o.value_coded when 664 then "Non Reactive" when 703 then "Reactive" else "" end),null)) as hiv_pre_test_counselling_result,
     max(if(o.concept_id=165171,(case o.value_coded when 1065 then "Yes" else "" end),null)) as given_pep,
     max(if(o.concept_id=165270,(case o.value_coded when 1065 then "Yes" else "" end),null)) as referred_to_psc,
     max(if(o.concept_id=160888,(case o.value_coded when 664 then "Non Reactive" when 703 then "Reactive"
@@ -444,8 +442,7 @@ from encounter e
 	inner join form f on f.form_id=e.form_id and f.uuid in ('f44b2405-226b-47c4-b98f-b826ea4725ae')
 	left outer join obs o on o.encounter_id=e.encounter_id and o.voided=0 and o.concept_id in
 	(166848,165416,5090,5089,1427,165205,165138,123160,165349,165230,167214,164848,159427,
-	1639,163042,163045,160971,165092,166141,299,163760,165171,165270,160888,165167,160138,160968,165200
-	160953,164845,160954,1263,166865,161472,654,790,160987,160753)
+	1639,163042,163045,160971,165092,166141,299,163760,165171,165270,160888,165167,160138,160968,165200,160953,164845,160954,1263,166865,161472,654,790,160987,160753)
 where e.voided=0 and (e.date_created >= last_update_time
             or e.date_changed >= last_update_time
             or e.date_voided >= last_update_time
@@ -500,7 +497,7 @@ group by e.patient_id, e.encounter_id
 -- gbv pep management for nonoccupational exposure
 DROP PROCEDURE IF EXISTS sp_update_etl_gbv_pepmanagement_nonoccupationalexposure $$
 CREATE PROCEDURE sp_update_etl_gbv_pepmanagement_nonoccupationalexposure(IN last_update_time DATETIME)
-  BEGIN
+BEGIN
     SELECT "Processing gbv_pepmanagement_nonoccupationalexposure data ", CONCAT("Time: ", NOW());
 insert into kenyaemr_etl.etl_gbv_pepmanagement_nonoccupationalexposure(
                                   uuid,
@@ -666,7 +663,7 @@ ON DUPLICATE KEY UPDATE
                        any_special_need=VALUES(any_special_need),
                        comment_special_need=VALUES(comment_special_need),
                        date_contacted_at_community=VALUES(date_contacted_at_community),
-                       number_of_interactive_session=VALUE(number_of_interractive_session),
+                       number_of_interactive_session=VALUES(number_of_interractive_session),
                        date_referred_GBVRC=VALUES(date_referred_GBVRC),
                        date_clinically_seen_at_GBVRC=VALUES(date_clinically_seen_at_GBVRC),
                        mobilizer_name=VALUES(mobilizer_name),
@@ -678,9 +675,9 @@ END $$
 -- etl_gbv_occupationalexposure
 DROP PROCEDURE IF EXISTS sp_update_etl_gbv_occupationalexposure $$
 CREATE PROCEDURE sp_update_etl_gbv_occupationalexposure(IN last_update_time DATETIME)
- BEGIN
-    SELECT "Processing etl_gbv_occupationalexposure data ", CONCAT("Time: ", NOW());
- insert into kenyaemr_etl.etl_gbv_occupationalexposure(
+BEGIN
+SELECT "Processing etl_gbv_occupationalexposure data ", CONCAT("Time: ", NOW());
+INSERT INTO kenyaemr_etl.etl_gbv_occupationalexposure(
                                       uuid,
                                       encounter_id,
                                       visit_id,
@@ -722,8 +719,7 @@ CREATE PROCEDURE sp_update_etl_gbv_occupationalexposure(IN last_update_time DATE
                                       tca_date,
                                       voided
  )
-select
-	select
+SELECT
     	e.uuid,
     	e.encounter_id as encounter_id,
     	e.visit_id as visit_id,
@@ -840,7 +836,7 @@ DROP PROCEDURE IF EXISTS sp_update_etl_gbv_pepmanagement_followup $$
 CREATE PROCEDURE sp_update_etl_gbv_pepmanagement_followup(IN last_update_time DATETIME)
   BEGIN
     SELECT "Processing etl_gbv_pepmanagement_followup data ", CONCAT("Time: ", NOW());
-insert into kenyaemr_etl.etl_gbv_pepmanagement_followup(
+INSERT INTO kenyaemr_etl.etl_gbv_pepmanagement_followup(
                                           uuid,
                                           encounter_id,
                                           visit_id,
@@ -864,7 +860,7 @@ insert into kenyaemr_etl.etl_gbv_pepmanagement_followup(
                                           tca_date,
                                           voided
     )
-    select
+    SELECT
     	e.uuid,
     	e.encounter_id as encounter_id,
     	e.visit_id as visit_id,
@@ -932,7 +928,7 @@ DROP PROCEDURE IF EXISTS sp_update_etl_gbv_physicalemotional_violence $$
 CREATE PROCEDURE sp_update_etl_gbv_physicalemotional_violence(IN last_update_time DATETIME)
   BEGIN
     SELECT "Processing gbv_physicalemotional_violence data ", CONCAT("Time: ", NOW());
-insert into kenyaemr_etl.etl_gbv_physicalemotional_violence(
+INSERT INTO kenyaemr_etl.etl_gbv_physicalemotional_violence(
                             uuid,
                             encounter_id,
                             visit_id,
@@ -961,7 +957,7 @@ insert into kenyaemr_etl.etl_gbv_physicalemotional_violence(
                             scheduled_appointment_date,
                             voided
     )
-    select
+   SELECT
     	e.uuid,
     	e.encounter_id as encounter_id,
     	e.visit_id as visit_id,
@@ -1021,7 +1017,7 @@ insert into kenyaemr_etl.etl_gbv_physicalemotional_violence(
                     rapid_hiv_test=VALUES(rapid_hiv_test),
                     rapid_hiv_test_comment=VALUES(rapid_hiv_test_comment),
                     legal_counsel=VALUES(legal_counsel),
-                    legal_counsel_comment=VALUE(legal_counsel_comment),
+                    legal_counsel_comment=VALUES(legal_counsel_comment),
                     child_protection=VALUES(child_protection),
                     child_protection_comment=VALUES(child_protection_comment),
                     referred_to=VALUES(referred_to),

@@ -8,24 +8,24 @@ CREATE PROCEDURE sp_update_etl_gbv_consenting(IN last_update_time DATETIME)
   BEGIN
     SELECT "Processing gbv_consenting data ", CONCAT("Time: ", NOW());
     insert into kenyaemr_etl.etl_gbv_consenting(
-                  uuid,
-                  encounter_id,
-                  visit_id,
-                  patient_id,
-                  location_id,
-                  visit_date,
-                  encounter_provider,
-                  date_created,
-                  medical_examination,
-                  collect_sample,
-                  provide_evidence,
-                  client_signature,
-                  witness_name,
-                  witness_signature,
-                  provider_name,
-                  provider_signature,
-                  date_consented,
-                  voided
+                                       uuid,
+                                       encounter_id,
+                                       visit_id,
+                                       patient_id,
+                                       location_id,
+                                       visit_date,
+                                       encounter_provider,
+                                       date_created,
+                                       medical_examination,
+                                       collect_sample,
+                                       provide_evidence,
+                                       client_signature,
+                                       witness_name,
+                                       witness_signature,
+                                       provider_name,
+                                       provider_signature,
+                                       date_consented,
+                                       voided
     )
 select
 	e.uuid,
@@ -81,25 +81,25 @@ DROP PROCEDURE IF EXISTS sp_update_etl_gbv_counsellingencounter $$
 CREATE PROCEDURE sp_update_etl_gbv_counsellingencounter(IN last_update_time DATETIME)
   BEGIN
     SELECT "Processing gbv_counsellingencounter data ", CONCAT("Time: ", NOW());
-    INSERT INTO kenyaemr_etl.etl_gbv_counsellingencounter(
-                                        uuid,
-                                        encounter_id,
-                                        visit_id,
-                                        patient_id,
-                                        location_id,
-                                        visit_date,
-                                        encounter_provider,
-                                        date_created,
-                                        prc_number,
-                                        type_of_exposure,
-                                        visit_no,
-                                        presenting_issue,
-                                        emerging_issue,
-                                        hiv_test_result,
-                                        plan_of_action,
-                                        tca_date,
-                                        voided
-)
+    insert into kenyaemr_etl.etl_gbv_counsellingencounter(
+                                                                     uuid,
+                                                                     encounter_id,
+                                                                     visit_id,
+                                                                     patient_id,
+                                                                     location_id,
+                                                                     visit_date,
+                                                                     encounter_provider,
+                                                                     date_created,
+                                                                     prc_number,
+                                                                     type_of_exposure,
+                                                                     visit_no,
+                                                                     presenting_issue,
+                                                                     emerging_issue,
+                                                                     hiv_test_result,
+                                                                     plan_of_action,
+                                                                     tca_date,
+                                                                     voided
+    )
 select
 	e.uuid,
 	e.encounter_id as encounter_id,
@@ -153,56 +153,56 @@ from encounter e
 -- sp_update_etl_gbv_perpetratorencounter --
 DROP PROCEDURE IF EXISTS sp_update_etl_gbv_perpetratorencounter $$
 CREATE PROCEDURE sp_update_etl_gbv_perpetratorencounter(IN last_update_time DATETIME)
-BEGIN
+  BEGIN
     SELECT "Processing sp_update_etl_gbv_perpetratorencounter data ", CONCAT("Time: ", NOW());
-    INSERT INTO kenyaemr_etl.etl_gbv_perpetratorencounter(
-                              uuid,
-                              encounter_id ,
-                              visit_id,
-                              patient_id,
-                              location_id,
-                              visit_date,
-                              encounter_provider,
-                              date_created,
-                              perpetrator_number,
-                              phonenumber,
-                              residence,
-                              occupation,
-                              other_occupation_specify,
-                              presenting_issue,
-                              action_plan_presenting_issue,
-                              pep_given,
-                              pep_given_no,
-                              ecp_given,
-                              ecp_given_no,
-                              sti_treatment_given,
-                              voided
-)
+    insert into kenyaemr_etl.sp_update_etl_gbv_perpetratorencounter(
+                                                                                                 uuid,
+                                                                                                 encounter_id ,
+                                                                                                 visit_id,
+                                                                                                 patient_id,
+                                                                                                 location_id,
+                                                                                                 visit_date,
+                                                                                                 encounter_provider,
+                                                                                                 date_created,
+                                                                                                 perpetrator_number,
+                                                                                                 phonenumber,
+                                                                                                 residence,
+                                                                                                 occupation,
+                                                                                                 other_occupation_specify,
+                                                                                                 presenting_issue,
+                                                                                                 action_plan_presenting_issue,
+                                                                                                 pep_given,
+                                                                                                 pep_given_no,
+                                                                                                 ecp_given,
+                                                                                                 ecp_given_no,
+                                                                                                 sti_treatment_given,
+                                                                                                 voided
+    )
 select
-	e.uuid,
-	e.encounter_id as encounter_id,
-	e.visit_id as visit_id,
-	e.patient_id,
-	e.location_id,
-	date(e.encounter_datetime) as visit_date,
-	e.creator as encounter_provider,
-	e.date_created as date_created,
-	max(if(o.concept_id=163151,o.value_text,null)) as perpetrator_number,
-	max(if(o.concept_id=163152,o.value_text,null)) as phonenumber,
-	max(if(o.concept_id=167131,o.value_text,null)) as residence,
-    max(if(o.concept_id=1542,(case o.value_coded when 123801 then "unemployed" when 1538 then "farmer"
-     when 1539 then "trader" when 1540 then "employee" when 159464 then "Housework"
-     when 159465 then "Student" when 159466 then "Driver" when 162946 then "Teacher"
-     when 1067 then "Other" else "" end),null)) as occupation,
-    max(if(o.concept_id=160632,o.value_text,null)) as other_occupation_specify,
-    max(if(o.concept_id=165138,o.value_text,null)) as presenting_issue,
-    max(if(o.concept_id=163104,o.value_text,null)) as action_plan_presenting_issue,
-    max(if(o.concept_id=165171,(case o.value_coded when 1065 then "Yes" when 1066 then "No"  else "" end),null)) as pep_given,
-    max(if(o.concept_id=162169,o.value_text,null)) as pep_given_no,
-    max(if(o.concept_id=160570,(case o.value_coded when 1065 then "Yes" when 1066 then "No"  else "" end),null)) as ecp_given,
-    max(if(o.concept_id=160845,o.value_text,null)) as ecp_given_no,
-    max(if(o.concept_id=165200,(case o.value_coded when 1065 then "Yes" when 1066 then "No"  else "" end),null)) as sti_treatment_given,
-    e.voided as voided
+	    e.uuid,
+    	e.encounter_id as encounter_id,
+    	e.visit_id as visit_id,
+    	e.patient_id,
+    	e.location_id,
+    	date(e.encounter_datetime) as visit_date,
+    	e.creator as encounter_provider,
+    	e.date_created as date_created,
+    	max(if(o.concept_id=163151,o.value_text,null)) as perpetrator_number,
+    	max(if(o.concept_id=163152,o.value_text,null)) as phonenumber,
+    	max(if(o.concept_id=167131,o.value_text,null)) as residence,
+        max(if(o.concept_id=1542,(case o.value_coded when 123801 then "unemployed" when 1538 then "farmer"
+         when 1539 then "trader" when 1540 then "employee" when 159464 then "Housework"
+         when 159465 then "Student" when 159466 then "Driver" when 162946 then "Teacher"
+         when 1067 then "Other" else "" end),null)) as occupation,
+        max(if(o.concept_id=160632,o.value_text,null)) as other_occupation_specify,
+        max(if(o.concept_id=165138,o.value_text,null)) as presenting_issue,
+        max(if(o.concept_id=163104,o.value_text,null)) as action_plan_presenting_issue,
+        max(if(o.concept_id=165171,(case o.value_coded when 1065 then "Yes" when 1066 then "No"  else "" end),null)) as pep_given,
+        max(if(o.concept_id=162169,o.value_text,null)) as pep_given_no,
+        max(if(o.concept_id=160570,(case o.value_coded when 1065 then "Yes" when 1066 then "No"  else "" end),null)) as ecp_given,
+        max(if(o.concept_id=160845,o.value_text,null)) as ecp_given_no,
+        max(if(o.concept_id=165200,(case o.value_coded when 1065 then "Yes" when 1066 then "No"  else "" end),null)) as sti_treatment_given,
+        e.voided as voided
     from encounter e
     	inner join person p on p.person_id=e.patient_id and p.voided=0
     	inner join
@@ -241,54 +241,55 @@ DROP PROCEDURE IF EXISTS sp_update_etl_gbv_legal $$
 CREATE PROCEDURE sp_update_etl_gbv_legal(IN last_update_time DATETIME)
   BEGIN
     SELECT "Processing legal data ", CONCAT("Time: ", NOW());
- INSERT INTO kenyaemr_etl.etl_gbv_legal(
-                uuid ,
-                encounter_id ,
-                visit_id,
-                patient_id ,
-                location_id ,
-                visit_date ,
-                encounter_provider,
-                date_created ,
-                ob_number,
-                police_station_reported_to,
-                perpetrator,
-                investigating_officer,
-                investigating_officer_phonenumber,
-                nature_of_action_taken,
-                action_taken_description,
-                in_court ,
-                criminal_suit_no ,
-                case_details,
-                alternate_contact_name,
-                alternate_phonenumber,
-                voided
-)
-select
-	e.uuid,
-	e.encounter_id as encounter_id,
-	e.visit_id as visit_id,
-	e.patient_id,
-	e.location_id,
-	date(e.encounter_datetime) as visit_date,
-	e.creator as encounter_provider,
-	e.date_created as date_created,
-	max(if(o.concept_id=167133,o.value_text,null)) as ob_number,
-	max(if(o.concept_id=165262,o.value_text,null)) as police_station_reported_to,
-	max(if(o.concept_id=165230,o.value_text,null)) as perpetrator,
-	max(if(o.concept_id=167018,o.value_text,null)) as investigating_officer,
-	max(if(o.concept_id=163152,o.value_text,null)) as investigating_officer_phonenumber,
-    max(if(o.concept_id=165205,(case o.value_coded when 118935 then "P3 Filled" when 118688 then "In court"
-        when 141537 then "ADR" when 145691 then "Case dropped" when 127910 then "Settled out of court"
-        when 126582 then "Alternative Justice system" when 147944 then "Conviction"
-        when 161636 then "Unreported case" else "" end),null)) as nature_of_action_taken,
-    max(if(o.concept_id=166511,o.value_text,null)) as action_taken_description,
-    max(if(o.concept_id=1562,(case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end),null)) as in_court,
-    max(if(o.concept_id=162086,o.value_text,null)) as criminal_suit_no,
-    max(if(o.concept_id=161011,o.value_text,null)) as case_details,
-    max(if(o.concept_id=163258,o.value_text,null)) as alternate_contact_name,
-    max(if(o.concept_id=159635,o.value_text,null)) as alternate_phonenumber,
-    e.voided as voided
+ insert into kenyaemr_etl.etl_gbv_legal(
+                                uuid ,
+                                encounter_id ,
+                                visit_id,
+                                patient_id ,
+                                location_id ,
+                                visit_date ,
+                                encounter_provider,
+                                date_created ,
+                                ob_number,
+                                police_station_reported_to,
+                                perpetrator,
+                                investigating_officer,
+                                investigating_officer_phonenumber,
+                                nature_of_action_taken,
+                                action_taken_description,
+                                referral_from_gbvrc,
+                                in_court ,
+                                criminal_suit_no ,
+                                case_details,
+                                alternate_contact_name,
+                                alternate_phonenumber,
+                                voided
+ )
+ select
+ 	e.uuid,
+    	e.encounter_id as encounter_id,
+    	e.visit_id as visit_id,
+    	e.patient_id,
+    	e.location_id,
+    	date(e.encounter_datetime) as visit_date,
+    	e.creator as encounter_provider,
+    	e.date_created as date_created,
+    	max(if(o.concept_id=167133,o.value_text,null)) as ob_number,
+    	max(if(o.concept_id=165262,o.value_text,null)) as police_station_reported_to,
+    	max(if(o.concept_id=165230,o.value_text,null)) as perpetrator,
+    	max(if(o.concept_id=167018,o.value_text,null)) as investigating_officer,
+    	max(if(o.concept_id=163152,o.value_text,null)) as investigating_officer_phonenumber,
+        max(if(o.concept_id=165205,(case o.value_coded when 118935 then "P3 Filled" when 118688 then "In court"
+            when 141537 then "ADR" when 145691 then "Case dropped" when 127910 then "Settled out of court"
+            when 126582 then "Alternative Justice system" when 147944 then "Conviction"
+            when 161636 then "Unreported case" else "" end),null)) as nature_of_action_taken,
+        max(if(o.concept_id=166511,o.value_text,null)) as action_taken_description,
+        max(if(o.concept_id=1562,(case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end),null)) as in_court,
+        max(if(o.concept_id=162086,o.value_text,null)) as criminal_suit_no,
+        max(if(o.concept_id=161011,o.value_text,null)) as case_details,
+        max(if(o.concept_id=163258,o.value_text,null)) as alternate_contact_name,
+        max(if(o.concept_id=159635,o.value_text,null)) as alternate_phonenumber,
+        e.voided as voided
     from encounter e
     	inner join person p on p.person_id=e.patient_id and p.voided=0
     	inner join
@@ -329,54 +330,54 @@ DROP PROCEDURE IF EXISTS sp_update_etl_gbv_pepmanagementforsurvivors $$
 CREATE PROCEDURE sp_update_etl_gbv_pepmanagementforsurvivors(IN last_update_time DATETIME)
   BEGIN
     SELECT "Processing gbv_pepmanagementforsurvivors data ", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_pepmanagementforsurvivors(
-      uuid,
-      encounter_id,
-      visit_id ,
-      patient_id ,
-      location_id ,
-      visit_date,
-      encounter_provider,
-      date_created,
-      date_reported,
-      prc_number,
-      weight,
-      height,
-      lmp,
-      type_of_violence,
-      specify_type_of_violence,
-      type_of_assault,
-      specify_type_of_assault,
-      date_time_incidence,
-      perpetrator_name,
-      relation_to_perpetrator,
-      compulsory_hiv_test,
-      compulsory_hiv_test_result,
-      perpetrator_file_number,
-      state_of_patient ,
-      state_of_patient_clothing ,
-      examination_genitalia ,
-      other_injuries ,
-      high_vagina_anal_swab_result,
-      RPR_VDRL_result,
-      hiv_pre_test_counselling_result,
-      given_pep,
-      referred_to_psc,
-      PDT_test_result,
-      emergency_pills,
-      emergency_pills_specify,
-      sti_prophylaxis_trx,
-      sti_prophylaxis_trx_specify,
-      pep_regimen,
-      pep_regimen_specify,
-      starter_pack_given,
-      date_given,
-      HBsAG_result,
-      LFTs_ALT_result,
-      creatinine_result,
-      other_specify_result,
-      tca_date,
-      voided
+insert into kenyaemr_etl.etl_gbv_pepmanagementforsurvivors(
+    uuid,
+         encounter_id,
+         visit_id ,
+         patient_id ,
+         location_id ,
+         visit_date,
+         encounter_provider,
+         date_created,
+         date_reported,
+         prc_number,
+         weight,
+         height,
+         lmp,
+         type_of_violence,
+         specify_type_of_violence,
+         type_of_assault,
+         specify_type_of_assault,
+         date_time_incidence,
+         perpetrator_name,
+         relation_to_perpetrator,
+         compulsory_hiv_test,
+         compulsory_hiv_test_result,
+         perpetrator_file_number,
+         state_of_patient ,
+         state_of_patient_clothing ,
+         examination_genitalia ,
+         other_injuries ,
+         high_vagina_anal_swab_result,
+         RPR_VDRL_result,
+         hiv_pre_test_counselling_result,
+         given_pep,
+         referred_to_psc,
+         PDT_result,
+         emergency_pills,
+         emergency_pills_specify,
+         sti_prophylaxis_trx,
+         sti_prophylaxis_trx_specify,
+         pep_regimen,
+         pep_regimen_specify,
+         starter_pack_given,
+         date_given,
+         HBsAG_result,
+         LFTs_ALT_result,
+         cretinine_result,
+         other_test_specify_result,
+         tca_date,
+         voided
 )
 select
 	e.uuid,
@@ -408,12 +409,11 @@ select
     max(if(o.concept_id=163045,o.value_text,null)) as state_of_patient_clothing,
     max(if(o.concept_id=160971,o.value_text,null)) as examination_genitalia,
     max(if(o.concept_id=165092,o.value_text,null)) as other_injuries,
+    max(if(o.concept_id=163045,o.value_text,null)) as state_of_patient_clothing,
     max(if(o.concept_id=166141,(case o.value_coded when 703 then "Reactive" when 664 then "Non Reactive"
     when 1138 then "Indeterminate" else "" end),null)) as high_vagina_anal_swab_result,
-    max(if(o.concept_id=299,(case o.value_coded when 1229 then "Non Reactive" when 1228 then "Reactive"
-    else "" end),null)) as RPR_VDRL_result,
-    max(if(o.concept_id=163760,(case o.value_coded when 664 then "Non Reactive" when 703 then "Reactive"
-    else "" end),null)) as hiv_pre_test_counselling_result,
+    max(if(o.concept_id=299,(case o.value_coded when 1229 then "Non Reactive" when 1228 then "Reactive" else "" end),null)) as RPR_VDRL_result,
+    max(if(o.concept_id=163760,(case o.value_coded when 664 then "Non Reactive" when 703 then "Reactive" else "" end),null)) as hiv_pre_test_counselling_result,
     max(if(o.concept_id=165171,(case o.value_coded when 1065 then "Yes" else "" end),null)) as given_pep,
     max(if(o.concept_id=165270,(case o.value_coded when 1065 then "Yes" else "" end),null)) as referred_to_psc,
     max(if(o.concept_id=160888,(case o.value_coded when 664 then "Non Reactive" when 703 then "Reactive"
@@ -433,8 +433,8 @@ select
     max(if(o.concept_id=161472,(case o.value_coded when 664 then "Non Reactive" when 1066 then "Reactive"
         else "" end),null)) as HBsAG_result,
     max(if(o.concept_id=654,o.value_numeric,null)) as LFTs_ALT_result,
-    max(if(o.concept_id=790,o.value_numeric,null)) as creatinine_result,
-    max(if(o.concept_id=160987,o.value_text,null)) as  other_specify_result,
+    max(if(o.concept_id=790,o.value_numeric,null)) as cretinine_result,
+    max(if(o.concept_id=160987,o.value_text,null)) as  other_test_specify_result,
     max(if(o.concept_id=160753,date(o.value_datetime),null)) as tca_date,
     e.voided
 from encounter e
@@ -442,8 +442,7 @@ from encounter e
 	inner join form f on f.form_id=e.form_id and f.uuid in ('f44b2405-226b-47c4-b98f-b826ea4725ae')
 	left outer join obs o on o.encounter_id=e.encounter_id and o.voided=0 and o.concept_id in
 	(166848,165416,5090,5089,1427,165205,165138,123160,165349,165230,167214,164848,159427,
-	1639,163042,163045,160971,165092,166141,299,163760,165171,165270,160888,165167,160138,160968,165200
-	160953,164845,160954,1263,166865,161472,654,790,160987,160753)
+	1639,163042,163045,160971,165092,166141,299,163760,165171,165270,160888,165167,160138,160968,165200,160953,164845,160954,1263,166865,161472,654,790,160987,160753)
 where e.voided=0 and (e.date_created >= last_update_time
             or e.date_changed >= last_update_time
             or e.date_voided >= last_update_time
@@ -498,31 +497,31 @@ group by e.patient_id, e.encounter_id
 -- gbv pep management for nonoccupational exposure
 DROP PROCEDURE IF EXISTS sp_update_etl_gbv_pepmanagement_nonoccupationalexposure $$
 CREATE PROCEDURE sp_update_etl_gbv_pepmanagement_nonoccupationalexposure(IN last_update_time DATETIME)
-  BEGIN
+BEGIN
     SELECT "Processing gbv_pepmanagement_nonoccupationalexposure data ", CONCAT("Time: ", NOW());
-INSERT INTO kenyaemr_etl.etl_gbv_pepmanagement_nonoccupationalexposure(
-                  uuid,
-                  encounter_id,
-                  visit_id,
-                  patient_id,
-                  location_id,
-                  visit_date,
-                  encounter_provider,
-                  date_created,
-                  ocn_number,
-                  weight,
-                  height,
-                  type_of_exposure,
-                  specify_other_exposure,
-                  hiv_test_result,
-                  starter_pack_given,
-                  pep_regimen,
-                  pep_regimen_specify,
-                  HBsAG_result,
-                  LFTs_ALT_result,
-                  creatinine_result,
-                  tca_date,
-                  voided
+insert into kenyaemr_etl.etl_gbv_pepmanagement_nonoccupationalexposure(
+                                  uuid,
+                                  encounter_id,
+                                  visit_id,
+                                  patient_id,
+                                  location_id,
+                                  visit_date,
+                                  encounter_provider,
+                                  date_created,
+                                  ocn_number,
+                                  weight,
+                                  height,
+                                  type_of_exposure,
+                                  specify_other_exposure,
+                                  hiv_test_result,
+                                  starter_pack_given,
+                                  pep_regimen,
+                                  pep_regimen_specify,
+                                  HBsAG_result,
+                                  LFTs_ALT_result,
+                                  creatinine_result,
+                                  tca_date,
+                                  voided
 )
 select
 	e.uuid,
@@ -538,7 +537,7 @@ select
     max(if(o.concept_id=5090,o.value_numeric,null)) as height,
     max(if(o.concept_id=165060, case o.value_coded when 165059 then 'Condom burst' when 127910 then 'Rape'
     when 159218 then 'unprotected sex' when 147273 then 'Human bite' when 137655 then 'Cut wound' when 1536 then 'Needle prick'
-    when 145691 then 'Defilement' when 5622 then 'other' else '' end,null)) as type_of_exposure,
+    when 145691 then Defilement when 5622 then other else '' end,null)) as type_of_exposure,
     max(if(o.concept_id=165138,o.value_text,null)) as specify_other_exposure,
     max(if(o.concept_id=159427,case o.value_coded when 703 then "Reactive" when 664 then "Non Reactive" else "" end,null)) as hiv_test_result,
     max(if(o.concept_id=1263,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as starter_pack_given,
@@ -589,30 +588,29 @@ DROP PROCEDURE IF EXISTS sp_update_etl_gbv_linkage $$
 CREATE PROCEDURE sp_update_etl_gbv_linkage(IN last_update_time DATETIME)
  BEGIN
     SELECT "Processing gbv_linkage data ", CONCAT("Time: ", NOW());
- INSERT INTO kenyaemr_etl.etl_gbv_linkage(
-        uuid,
-        encounter_id ,
-        visit_id,
-        patient_id  ,
-        location_id ,
-        visit_date,
-        encounter_provider ,
-        date_created ,
-        date_of_violence,
-        nature_of_violence,
-        action_taken ,
-        other_action_taken,
-        any_special_need ,
-        comment_special_need,
-        date_contacted_at_community,
-        number_of_interactive_session,
-        date_referred_GBVRC,
-        date_clinically_seen_at_GBVRC,
-        mobilizer_name,
-        mobilizer_phonenumber ,
-        received_by,
-        voided
-)
+ insert into kenyaemr_etl.etl_gbv_linkage(
+                 uuid,
+                 encounter_id ,
+                 patient_id  ,
+                 location_id ,
+                 visit_date,
+                 encounter_provider ,
+                 date_created ,
+                 date_of_violence,
+                 nature_of_violence,
+                 action_taken ,
+                 other_action_taken,
+                 any_special_need ,
+                 comment_special_need,
+                 date_contacted_at_community,
+                 number_of_interactive_session,
+                 date_referred_GBVRC,
+                 date_clinically_seen_at_GBVRC,
+                 mobilizer_name,
+                 mobilizer_phonenumber ,
+                 received_by,
+                 voided
+ )
 select
 	e.uuid,
 	e.encounter_id as encounter_id,
@@ -665,7 +663,7 @@ ON DUPLICATE KEY UPDATE
                        any_special_need=VALUES(any_special_need),
                        comment_special_need=VALUES(comment_special_need),
                        date_contacted_at_community=VALUES(date_contacted_at_community),
-                       number_of_interactive_session=VALUE(number_of_interractive_session),
+                       number_of_interactive_session=VALUES(number_of_interractive_session),
                        date_referred_GBVRC=VALUES(date_referred_GBVRC),
                        date_clinically_seen_at_GBVRC=VALUES(date_clinically_seen_at_GBVRC),
                        mobilizer_name=VALUES(mobilizer_name),
@@ -677,110 +675,110 @@ END $$
 -- etl_gbv_occupationalexposure
 DROP PROCEDURE IF EXISTS sp_update_etl_gbv_occupationalexposure $$
 CREATE PROCEDURE sp_update_etl_gbv_occupationalexposure(IN last_update_time DATETIME)
- BEGIN
-    SELECT "Processing etl_gbv_occupationalexposure data ", CONCAT("Time: ", NOW());
- INSERT INTO kenyaemr_etl.etl_gbv_pepmanagement_occupationalexposure(
-                     uuid,
-                     encounter_id,
-                     visit_id,
-                     patient_id,
-                     location_id,
-                     visit_date,
-                     encounter_provider,
-                     date_created,
-                     location_during_exposure,
-                     date_time_exposure,
-                     cadre,
-                     type_of_exposure,
-                     specify_other_exposure,
-                     severity_exposure,
-                     device_causing_exposure,
-                     specify_other_device,
-                     device_safety,
-                     procedure_device_used,
-                     description_how_injury,
-                     hiv_test_result,
-                     HBsAG_result,
-                     HCV_result,
-                     accident_exposure,
-                     pep_last_exposure,
-                     how_many_days,
-                     reason_incomplete_dose,
-                     HB_immunization,
-                     reason_no_partial_vaccine,
-                     regimen_ARVs_datetime,
-                     wish_to_take_PEP,
-                     pregnant,
-                     breastfeeding,
-                     underlying_health_problem,
-                     specify_health_problem,
-                     hcw_on_medication,
-                     preliminary_classification_risk,
-                     arv_regimen_post_assessment,
-                     date_dispense,
-                     tca_date,
-                     voided
-)
-select
-	e.uuid,
-	e.encounter_id as encounter_id,
-	e.visit_id as visit_id,
-	e.patient_id,
-	e.location_id,
-	date(e.encounter_datetime) as visit_date,
-	e.creator as encounter_provider,
-	e.date_created as date_created,
-    max(if(o.concept_id=1673,o.value_text,null)) as location_during_exposure,
-    max(if(o.concept_id=162601,o.value_datetime,null)) as date_time_exposure,
-    max(if(o.concept_id=162169,o.value_text,null)) as cadre,
-    max(if(o.concept_id=1572, case o.value_coded when 1536 then "Needle prick"
-    	when 1588 then "Cut" when 1589 then "Splash on mucosa" when 1601 then "Splash on non intact skin"
-    	when 5622 then "other(specify)" else "" end,null)) as type_of_exposure,
-    max(if(o.concept_id=160716,o.value_text,null)) as specify_other_exposure,
-    max(if(o.concept_id=159559, case o.value_coded when 1499 then "Superficial"
-        	when 1500 then "Deep"  else "" end,null)) as severity_exposure,
-    max(if(o.concept_id=164204, case o.value_coded when 460 then "Hollow bore needle"
-            when 5201 then "Solid needle" when 5243 then "Scapel"
-            when 136443 then "Glass" when 5266 then "Other(specify)" else "" end,null)) as device_causing_exposure,
-    max(if(o.concept_id=160632,o.value_text,null)) as specify_other_device,
-    max(if(o.concept_id=164875, case o.value_coded when 1065 then "Yes"
-            	when 1066 then "No"  else "" end,null)) as device_safety,
-    max(if(o.concept_id=166635,o.value_text,null)) as procedure_device_used,
-    max(if(o.concept_id=1552,o.value_text,null)) as description_how_injury,
-    max(if(o.concept_id=159427, case o.value_coded when 664 then "Negative"
-         when 703 then "Positive" when 1067 then "Unknown" else "" end,null)) as  hiv_test_result,
-    max(if(o.concept_id=161472, case o.value_coded when 664 then "Negative"
-             when 703 then "Positive" when 1067 then "Unknown" else "" end,null)) as HBsAG_result,
-    max(if(o.concept_id=161471, case o.value_coded when 664 then "Negative"
-                 when 703 then "Positive" when 1067 then "Unknown" else "" end,null)) as HCV_result,
-    max(if(o.concept_id=1716, case o.value_coded when 1065 then "Yes"
-                	when 1066 then "No"  else "" end,null)) as accident_exposure,
-    max(if(o.concept_id=165171, case o.value_coded when 1065 then "Yes"
-                   	when 1066 then "No"  else "" end,null)) as pep_last_exposure,
-    max(if(o.concept_id=166086,o.value_text,null)) as pep_regimen_taken,
-    max(if(o.concept_id=165170,o.value_numeric,null)) as how_many_days,
-    max(if(o.concept_id=160632,o.value_text,null)) as reason_incomplete_dose,
-    max(if(o.concept_id=159430, case o.value_coded when 1065 then "Yes fully (3 doses)"
-     when 1067 then "Yes partially (1-2 doses)"	when 1066 then "No"  else "" end,null)) as HB_immunization,
-    max(if(o.concept_id=162704,o.value_text,null)) as reason_no_partial_vaccine,
-    -- max(if(o.concept_id=160632,o.value_text,null)) as regimen_ARVs_datetime,
-    max(if(o.concept_id=164845, case o.value_coded when 1065 then "Yes"
-       when 1066 then "No"  else "" end,null)) as wish_to_take_PEP,
-    max(if(o.concept_id=1523, case o.value_coded when 1065 then "Yes"
-           when 1066 then "No"  else "" end,null)) as pregnant,
-    max(if(o.concept_id=5632, case o.value_coded when 1065 then "Yes"
-           when 1066 then "No"  else "" end,null)) as breastfeeding,
-    max(if(o.concept_id=164878, case o.value_coded when 1065 then "Yes"
-               when 1066 then "No"  else "" end,null)) as underlying_health_problem,
-    max(if(o.concept_id=163042,o.value_text,null)) as specify_health_problem,
-    max(if(o.concept_id=1417, case o.value_coded when 1065 then "Yes"
-                   when 1066 then "No"  else "" end,null)) as hcw_on_medication,
-    max(if(o.concept_id=165053, case o.value_coded when 1065 then "Low risk"
-                       when 1066 then "High risk"  else "" end,null)) as  preliminary_classification_risk,
-    max(if(o.concept_id=163104,o.value_text,null)) as arv_regimen_post_assessment,
-    max(if(o.concept_id=166865,date(o.value_datetime),null)) as date_dispense,
-    max(if(o.concept_id=160753,date(o.value_datetime),null)) as tca_date,
-    e.voided
+BEGIN
+SELECT "Processing etl_gbv_occupationalexposure data ", CONCAT("Time: ", NOW());
+INSERT INTO kenyaemr_etl.etl_gbv_occupationalexposure(
+                                      uuid,
+                                      encounter_id,
+                                      visit_id,
+                                      patient_id,
+                                      location_id,
+                                      visit_date,
+                                      encounter_provider,
+                                      date_created,
+                                      location_during_exposure,
+                                      date_time_exposure,
+                                      cadre,
+                                      type_of_exposure,
+                                      specify_other_exposure,
+                                      severity_exposure,
+                                      device_causing_exposure,
+                                      specify_other_device,
+                                      device_safety,
+                                      procedure_device_used,
+                                      description_how_injury,
+                                      hiv_test_result,
+                                      HBsAG_result,
+                                      HCV_result,
+                                      accident_exposure,
+                                      pep_last_exposure,
+                                      how_many_days,
+                                      reason_incomplete_dose,
+                                      HB_immunization,
+                                      reason_no_partial_vaccine,
+                                      regimen_ARVs_datetime,
+                                      wish_to_take_PEP,
+                                      pregnant,
+                                      breastfeeding,
+                                      underlying_health_problem,
+                                      specify_health_problem,
+                                      hcw_on_medication,
+                                      preliminary_classification_risk,
+                                      arv_regimen_post_assessment,
+                                      date_dispense,
+                                      tca_date,
+                                      voided
+ )
+SELECT
+    	e.uuid,
+    	e.encounter_id as encounter_id,
+    	e.visit_id as visit_id,
+    	e.patient_id,
+    	e.location_id,
+    	date(e.encounter_datetime) as visit_date,
+    	e.creator as encounter_provider,
+    	e.date_created as date_created,
+        max(if(o.concept_id=1673,o.value_text,null)) as location_during_exposure,
+        max(if(o.concept_id=162601,o.value_datetime,null)) as date_time_exposure,
+        max(if(o.concept_id=162169,o.value_text,null)) as cadre,
+        max(if(o.concept_id=1572, case o.value_coded when 1536 then "Needle prick"
+        	when 1588 then "Cut" when 1589 then "Splash on mucosa" when 1601 then "Splash on non intact skin"
+        	when 5622 then "other(specify)" else "" end,null)) as type_of_exposure,
+        max(if(o.concept_id=160716,o.value_text,null)) as specify_other_exposure,
+        max(if(o.concept_id=159559, case o.value_coded when 1499 then "Superficial"
+            	when 1500 then "Deep"  else "" end,null)) as severity_exposure,
+        max(if(o.concept_id=164204, case o.value_coded when 460 then "Hollow bore needle"
+                when 5201 then "Solid needle" when 5243 then "Scapel"
+                when 136443 then "Glass" when 5266 then "Other(specify)" else "" end,null)) as device_causing_exposure,
+        max(if(o.concept_id=160632,o.value_text,null)) as specify_other_device,
+        max(if(o.concept_id=164875, case o.value_coded when 1065 then "Yes"
+                	when 1066 then "No"  else "" end,null)) as device_safety,
+        max(if(o.concept_id=166635,o.value_text,null)) as procedure_device_used,
+        max(if(o.concept_id=1552,o.value_text,null)) as description_how_injury,
+        max(if(o.concept_id=159427, case o.value_coded when 664 then "Negative"
+             when 703 then "Positive" when 1067 then "Unknown" else "" end,null)) as  hiv_test_result,
+        max(if(o.concept_id=161472, case o.value_coded when 664 then "Negative"
+                 when 703 then "Positive" when 1067 then "Unknown" else "" end,null)) as HBsAG_result,
+        max(if(o.concept_id=161471, case o.value_coded when 664 then "Negative"
+                     when 703 then "Positive" when 1067 then "Unknown" else "" end,null)) as HCV_result,
+        max(if(o.concept_id=1716, case o.value_coded when 1065 then "Yes"
+                    	when 1066 then "No"  else "" end,null)) as accident_exposure,
+        max(if(o.concept_id=165171, case o.value_coded when 1065 then "Yes"
+                       	when 1066 then "No"  else "" end,null)) as pep_last_exposure,
+        max(if(o.concept_id=166086,o.value_text,null)) as pep_regimen_taken,
+        max(if(o.concept_id=165170,o.value_numeric,null)) as how_many_days,
+        max(if(o.concept_id=160632,o.value_text,null)) as reason_incomplete_dose,
+        max(if(o.concept_id=159430, case o.value_coded when 1065 then "Yes fully (3 doses)"
+         when 1067 then "Yes partially (1-2 doses)"	when 1066 then "No"  else "" end,null)) as HB_immunization,
+        max(if(o.concept_id=162704,o.value_text,null)) as reason_no_partial_vaccine,
+        -- max(if(o.concept_id=160632,o.value_text,null)) as regimen_ARVs_datetime,
+        max(if(o.concept_id=164845, case o.value_coded when 1065 then "Yes"
+           when 1066 then "No"  else "" end,null)) as wish_to_take_PEP,
+        max(if(o.concept_id=1523, case o.value_coded when 1065 then "Yes"
+               when 1066 then "No"  else "" end,null)) as pregnant,
+        max(if(o.concept_id=5632, case o.value_coded when 1065 then "Yes"
+               when 1066 then "No"  else "" end,null)) as breastfeeding,
+        max(if(o.concept_id=164878, case o.value_coded when 1065 then "Yes"
+                   when 1066 then "No"  else "" end,null)) as underlying_health_problem,
+        max(if(o.concept_id=163042,o.value_text,null)) as specify_health_problem,
+        max(if(o.concept_id=1417, case o.value_coded when 1065 then "Yes"
+                       when 1066 then "No"  else "" end,null)) as hcw_on_medication,
+        max(if(o.concept_id=165053, case o.value_coded when 1065 then "Low risk"
+                           when 1066 then "High risk"  else "" end,null)) as  preliminary_classification_risk,
+        max(if(o.concept_id=163104,o.value_text,null)) as arv_regimen_post_assessment,
+        max(if(o.concept_id=166865,date(o.value_datetime),null)) as date_dispense,
+        max(if(o.concept_id=160753,date(o.value_datetime),null)) as tca_date,
+        e.voided
     from encounter e
     	inner join person p on p.person_id=e.patient_id and p.voided=0
     	inner join form f on f.form_id=e.form_id and f.uuid = '11a880ec-cbb6-40c8-811d-2c9e057c534a'
@@ -839,54 +837,62 @@ CREATE PROCEDURE sp_update_etl_gbv_pepmanagement_followup(IN last_update_time DA
   BEGIN
     SELECT "Processing etl_gbv_pepmanagement_followup data ", CONCAT("Time: ", NOW());
 INSERT INTO kenyaemr_etl.etl_gbv_pepmanagement_followup(
-                          uuid,
-                          encounter_id,
-                          visit_id,
-                          patient_id,
-                          location_id,
-                          visit_date,
-                          encounter_provider,
-                          date_created,
-                          visit_no,
-                          HBsAG_test,
-                          HBsAG_result,
-                          hiv_test,
-                          hiv_test_result,
-                          lfts_test_result,
-                          cretinine_test_result,
-                          specify_other_test,
-                          pep_completed,
-                          reason_for_incomplete_pep,
-                          patient_assessment,
-                          hiv_serology ,
-                          tca_date,
-                          voided
-)
-select
-	e.uuid,
-	e.encounter_id as encounter_id,
-	e.visit_id as visit_id,
-	e.patient_id,
-	e.location_id,
-	date(e.encounter_datetime) as visit_date,
-	e.creator as encounter_provider,
-	e.date_created as date_created,
-	max(if(o.concept_id=1724,case o.value_coded when 1722 then "2nd visit" when 165307 then "3rd visit"
-	when 1721 then "4th visit" when 1723 then "5th visit" else "" end,null)) as visit_no,
-    max(if(o.concept_id=161472,case o.value_coded when 158358 then "physical violence" when 117510 then "Emotional"
-	 else "" end,null)) as type_of_violence,
-	max(if(o.concept_id=161472,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as HBsAG_test,
-    max(if(o.concept_id=165384,case o.value_coded when 664 then "Non reactive" when 703 then "Positive" else "" end,null)) as HBsAG_result,
-    max(if(o.concept_id=164848,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as hiv_test,
-    max(if(o.concept_id=159427,case o.value_coded when 664 then "Non reactive" when 703 then "Positive" else "" end,null)) as hiv_test_result,
-    max(if(o.concept_id=654,o.value_text,null)) as lfts_test_result,
-    max(if(o.concept_id=790,o.value_text,null)) as cretinine_test_result,
-    max(if(o.concept_id=160689,o.value_text,null)) as specify_other_test,
-    max(if(o.concept_id=165171,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as pep_completed,
-    max(if(o.concept_id=161011,o.value_text,null)) as reason_for_incomplete_pep,
-    max(if(o.concept_id=166664,case o.value_coded when 664 then "Non Reactive" when 703 then "Reactive" else "" end,null)) as hiv_serology,
-    max(if(o.concept_id=160753,date(o.value_datetime),null)) as tca_date,
-    e.voided
+                                          uuid,
+                                          encounter_id,
+                                          visit_id,
+                                          patient_id,
+                                          location_id,
+                                          visit_date,
+                                          encounter_provider,
+                                          date_created,
+                                          visit_no,
+                                          HBsAG_test,
+                                          HBsAG_result,
+                                          hiv_test,
+                                          hiv_test_result,
+                                          lfts_test_result,
+                                          cretinine_test_result,
+                                          specify_other_test,
+                                          pep_completed,
+                                          reason_for_incomplete_pep,
+                                          patient_assessment,
+                                          hiv_serology ,
+                                          tca_date,
+                                          voided
+    )
+    SELECT
+    	e.uuid,
+    	e.encounter_id as encounter_id,
+    	e.visit_id as visit_id,
+    	e.patient_id,
+    	e.location_id,
+    	date(e.encounter_datetime) as visit_date,
+    	e.creator as encounter_provider,
+    	e.date_created as date_created,
+    	max(if(o.concept_id=165416,o.value_text,null)) as gbv_no,
+    	max(if(o.concept_id=1272,case o.value_coded when 5486 then "police" when 1275 then "Health facility"
+    	when 978 then "Self" when 160543 then "Community outreach" when 5622 then "other"
+    	else "" end,null)) as referred_from,
+        max(if(o.concept_id=165092,o.value_text,null)) as referred_from_specify,
+        max(if(o.concept_id=161103,o.value_text,null)) as rri_test,
+    	max(if(o.concept_id=165092,o.value_text,null)) as pr_test,
+        max(if(o.concept_id=165205,case o.value_coded when 158358 then "physical violence" when 117510 then "Emotional"
+    	when 5622 then "other" else "" end,null)) as type_of_violence,
+        max(if(o.concept_id = 160632,o.value_text,null)) as specify_type_of_violence,
+        max(if(o.concept_id=165184,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as trauma_counselling,
+    	max(if(o.concept_id=161011,o.value_text,null)) as trauma_counselling_comment,
+    	max(if(o.concept_id=165172,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as sti_screening_tx,
+    	max(if(o.concept_id=160632,o.value_text,null)) as sti_screening_tx_comment,
+    	max(if(o.concept_id=167229,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as lab_test,
+        max(if(o.concept_id=165435,o.value_text,null)) as lab_test_comment,
+        max(if(o.concept_id=164848,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as rapid_hiv_test,
+        max(if(o.concept_id=164963,o.value_text,null)) as rapid_hiv_test_comment,
+        max(if(o.concept_id=1379,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as legal_counsel,
+        max(if(o.concept_id=165426,o.value_text,null)) as legal_counsel_comment,
+        max(if(o.concept_id=161601,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as child_protection,
+        max(if(o.concept_id=167214,o.value_text,null)) as child_protection_comment,
+        max(if(o.concept_id=1885,case o.value_coded when 165192 then "police" when 165227 then "safe space" when 165227 then "ADR" else "" end,null)) as referred_to,
+    	e.voided
     from encounter e
     	inner join person p on p.person_id=e.patient_id and p.voided=0
     	inner join form f on f.form_id=e.form_id and f.uuid = 'a0943862-f0fe-483d-9f11-44f62abae063'
@@ -923,64 +929,67 @@ CREATE PROCEDURE sp_update_etl_gbv_physicalemotional_violence(IN last_update_tim
   BEGIN
     SELECT "Processing gbv_physicalemotional_violence data ", CONCAT("Time: ", NOW());
 INSERT INTO kenyaemr_etl.etl_gbv_physicalemotional_violence(
-            uuid,
-            encounter_id,
-            visit_id,
-            patient_id ,
-            location_id ,
-            visit_date ,
-            encounter_provider,
-            date_created ,
-            gbv_no,
-            referred_from,
-            referred_from_specify,
-            type_of_violence,
-            trauma_counselling,
-            trauma_counselling_comment,
-            sti_screening_tx,
-            sti_screening_tx_comment,
-            lab_test,
-            lab_test_comment,
-            rapid_hiv_test,
-            rapid_hiv_test_comment,
-            legal_counsel,
-            legal_counsel_comment,
-            child_protection,
-            child_protection_comment,
-            referred_to,
-            -- scheduled_appointment_date,
-            voided
-)
-select
-	e.uuid,
-	e.encounter_id as encounter_id,
-	e.visit_id as visit_id,
-	e.patient_id,
-	e.location_id,
-	date(e.encounter_datetime) as visit_date,
-	e.creator as encounter_provider,
-	e.date_created as date_created,
-	max(if(o.concept_id=165416,o.value_text,null)) as gbv_no,
-	max(if(o.concept_id=1272,case o.value_coded when 5486 then "police" when 1275 then "Health facility"
-	when 978 then "Self" when 160543 then "Community outreach" when 5622 then "other"
-	else "" end,null)) as referred_from,
-    max(if(o.concept_id=165092,o.value_text,null)) as referred_from_specify,
-    max(if(o.concept_id=165205,case o.value_coded when 158358 then "physical violence" when 117510 then "Emotional"
-	 else "" end,null)) as type_of_violence,
-    max(if(o.concept_id=165184,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as trauma_counselling,
-	max(if(o.concept_id=161011,o.value_text,null)) as trauma_counselling_comment,
-	max(if(o.concept_id=165172,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as sti_screening_tx,
-	max(if(o.concept_id=160632,o.value_text,null)) as sti_screening_tx_comment,
-	max(if(o.concept_id=167229,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as lab_test,
-    max(if(o.concept_id=165435,o.value_text,null)) as lab_test_comment,
-    max(if(o.concept_id=164848,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as rapid_hiv_test,
-    max(if(o.concept_id=164963,o.value_text,null)) as rapid_hiv_test_comment,
-    max(if(o.concept_id=1379,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as legal_counsel,
-    max(if(o.concept_id=165426,o.value_text,null)) as legal_counsel_comment,
-    max(if(o.concept_id=161601,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as child_protection,
-    max(if(o.concept_id=167214,o.value_text,null)) as child_protection_comment,
-    max(if(o.concept_id=1885,case o.value_coded when 165192 then "police" when 165227 then "safe space" when 165227 then "ADR" else "" end,null)) as referred_to,
-	e.voided
+                            uuid,
+                            encounter_id,
+                            visit_id,
+                            patient_id ,
+                            location_id ,
+                            visit_date ,
+                            encounter_provider,
+                            date_created ,
+                            gbv_no,
+                            referred_from,
+                            referred_from_specify,
+                            type_of_violence,
+                            trauma_counselling,
+                            trauma_counselling_comment,
+                            sti_screening_tx,
+                            sti_screening_tx_comment,
+                            lab_test,
+                            lab_test_comment,
+                            rapid_hiv_test,
+                            rapid_hiv_test_comment,
+                            legal_counsel,
+                            legal_counsel_comment,
+                            child_protection,
+                            child_protection_comment,
+                            referred_to,
+                            scheduled_appointment_date,
+                            voided
+    )
+   SELECT
+    	e.uuid,
+    	e.encounter_id as encounter_id,
+    	e.visit_id as visit_id,
+    	e.patient_id,
+    	e.location_id,
+    	date(e.encounter_datetime) as visit_date,
+    	e.creator as encounter_provider,
+    	e.date_created as date_created,
+    	max(if(o.concept_id=165416,o.value_text,null)) as gbv_no,
+    	max(if(o.concept_id=1272,case o.value_coded when 5486 then "police" when 1275 then "Health facility"
+    	when 978 then "Self" when 160543 then "Community outreach" when 5622 then "other"
+    	else "" end,null)) as referred_from,
+        max(if(o.concept_id=165092,o.value_text,null)) as referred_from_specify,
+        max(if(o.concept_id=161103,o.value_text,null)) as rri_test,
+    	max(if(o.concept_id=165092,o.value_text,null)) as pr_test,
+        max(if(o.concept_id=165205,case o.value_coded when 158358 then "physical violence" when 117510 then "Emotional"
+    	when 5622 then "other" else "" end,null)) as type_of_violence,
+        max(if(o.concept_id = 160632,o.value_text,null)) as specify_type_of_violence,
+        max(if(o.concept_id=165184,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as trauma_counselling,
+    	max(if(o.concept_id=161011,o.value_text,null)) as trauma_counselling_comment,
+    	max(if(o.concept_id=165172,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as sti_screening_tx,
+    	max(if(o.concept_id=160632,o.value_text,null)) as sti_screening_tx_comment,
+    	max(if(o.concept_id=167229,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as lab_test,
+        max(if(o.concept_id=165435,o.value_text,null)) as lab_test_comment,
+        max(if(o.concept_id=164848,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as rapid_hiv_test,
+        max(if(o.concept_id=164963,o.value_text,null)) as rapid_hiv_test_comment,
+        max(if(o.concept_id=1379,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as legal_counsel,
+        max(if(o.concept_id=165426,o.value_text,null)) as legal_counsel_comment,
+        max(if(o.concept_id=161601,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as child_protection,
+        max(if(o.concept_id=167214,o.value_text,null)) as child_protection_comment,
+        max(if(o.concept_id=1885,case o.value_coded when 165192 then "police" when 165227 then "safe space" when 165227 then "ADR" else "" end,null)) as referred_to,
+    	e.voided
     from encounter e
     	inner join person p on p.person_id=e.patient_id and p.voided=0
     	inner join form f on f.form_id=e.form_id and f.uuid = 'a0943862-f0fe-483d-9f11-44f62abae063'
@@ -1008,7 +1017,7 @@ select
                     rapid_hiv_test=VALUES(rapid_hiv_test),
                     rapid_hiv_test_comment=VALUES(rapid_hiv_test_comment),
                     legal_counsel=VALUES(legal_counsel),
-                    legal_counsel_comment=VALUE(legal_counsel_comment),
+                    legal_counsel_comment=VALUES(legal_counsel_comment),
                     child_protection=VALUES(child_protection),
                     child_protection_comment=VALUES(child_protection_comment),
                     referred_to=VALUES(referred_to),

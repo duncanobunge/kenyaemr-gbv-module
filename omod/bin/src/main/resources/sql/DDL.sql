@@ -52,7 +52,7 @@ CREATE TABLE kenyaemr_etl.etl_gbv_consenting(
       INDEX(patient_id),
       INDEX(patient_id, visit_date)
     );
-  SELECT "Successfully created gbv consenting table";
+  SELECT "Successfully created gbv prc consenting table";
 -------------- create table kenyaemr_etl.etl_gbv_physicalemotional_violence-----------------------
 
 CREATE TABLE kenyaemr_etl.etl_gbv_physicalemotional_violence(
@@ -146,6 +146,7 @@ CREATE TABLE kenyaemr_etl.etl_gbv_legal(
       investigating_officer_phonenumber INT(11),
       nature_of_action_taken VARCHAR(10),
       action_taken_description VARCHAR(255),
+      referral_from_gbvrc VARCHAR(11),
       in_court VARCHAR(11),
       criminal_suit_no INT(11),
       case_details VARCHAR(1024),
