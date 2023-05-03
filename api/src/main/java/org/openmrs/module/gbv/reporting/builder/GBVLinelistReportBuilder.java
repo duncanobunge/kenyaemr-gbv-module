@@ -18,6 +18,12 @@ import org.openmrs.module.gbv.reporting.calculation.RegistrationSubCountyAddress
 import org.openmrs.module.gbv.reporting.calculation.converter.GeneralCalculationResultConverter;
 import org.openmrs.module.gbv.reporting.cohort.definition.GBVLinelistCohortDefinition;
 import org.openmrs.module.gbv.reporting.data.definition.gbvEnrollmentRegister.ClientConsentingDateDataDefinition;
+import org.openmrs.module.gbv.reporting.data.definition.gbvEnrollmentRegister.GbvClientMedicalExaminationDataDefinition;
+import org.openmrs.module.gbv.reporting.data.definition.gbvEnrollmentRegister.GbvClientConsentingCollectSampleDataDefinition;
+import org.openmrs.module.gbv.reporting.data.definition.gbvEnrollmentRegister.GbvClientConsentingProvideEvidenceDataDefinition;
+import org.openmrs.module.gbv.reporting.data.definition.gbvEnrollmentRegister.GbvClientConsentingWitnessNameDataDefinition;
+import org.openmrs.module.gbv.reporting.data.definition.gbvEnrollmentRegister.GbvClientConsentingSignatureDataDefinition;
+import org.openmrs.module.gbv.reporting.data.definition.gbvEnrollmentRegister.GbvClientConsentingProviderNameDataDefinition;
 import org.openmrs.module.kenyacore.report.ReportDescriptor;
 import org.openmrs.module.kenyacore.report.ReportUtils;
 import org.openmrs.module.kenyacore.report.builder.AbstractReportBuilder;
@@ -94,10 +100,17 @@ public class GBVLinelistReportBuilder extends AbstractReportBuilder {
 		        new RegistrationSubCountyAddressCalculation()), "", new GeneralCalculationResultConverter());
 		dsd.addColumn("Village/Estate of residence", new CalculationDataDefinition("Village/Estate of residence",
 				new PersonAddressCalculation()), "", new GeneralCalculationResultConverter());
+		
+		dsd.addColumn("Medical Examination", new GbvClientMedicalExaminationDataDefinition(), "");
+		dsd.addColumn("Collect Sample", new GbvClientConsentingCollectSampleDataDefinition(), "");
+		dsd.addColumn("Provide Evidence", new GbvClientConsentingProvideEvidenceDataDefinition(), "");
+		dsd.addColumn("Client Initial", new GbvClientConsentingSignatureDataDefinition(), "");
+		dsd.addColumn("Witness Name", new GbvClientConsentingWitnessNameDataDefinition(), "");
+		dsd.addColumn("HC Provider Name", new GbvClientConsentingProviderNameDataDefinition(),"");
 		dsd.addColumn("Consenting date", new ClientConsentingDateDataDefinition(), "", new DateConverter(DATE_FORMAT));
 		
 
-		// new columns
+		// new columns GbvClientConsentingProviderNameDataDefinition
 
 		GBVLinelistCohortDefinition cd = new GBVLinelistCohortDefinition();
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
