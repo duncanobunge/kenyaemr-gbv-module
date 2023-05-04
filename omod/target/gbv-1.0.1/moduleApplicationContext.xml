@@ -30,6 +30,7 @@
 		<property name="reports">
 			<set>
 				<ref bean="kenyaemr.gbv.enrollment.report" />
+				<ref bean="kenyaemr.gbv.legal.report" />
 			</set>
 		</property>
 		<property name="order" value="300" />
@@ -48,12 +49,15 @@
 	</bean>-->
 
 
-	<!--Reports-->
+	<!--Begin
+	Reports-->
+	<!--GBV
+	PRC consent reporting-->
 	<bean id="kenyaemr.gbv.enrollment.report"
 		class="org.openmrs.module.kenyacore.report.HybridReportDescriptor">
 		<property name="targetUuid" value="6f67cb3a-02a5-4267-ac3c-189d492497ca" />
-		<property name="name" value="gbv enrollment report" />
-		<property name="description" value="gbv enrollment report" />
+		<property name="name" value="GBV Survivors Consented for PRC" />
+		<property name="description" value="Linelist of Survivors consented for PRC" />
 		<property name="apps">
 			<set>
 				<ref bean="kenyaemr.app.reports" />
@@ -61,6 +65,22 @@
 		</property>
 		<property name="template" value="gbv:gbv_template.xls" />
 		<property name="repeatingSection" value="sheet:1,row:2,dataset:gbvEnrollmentRegister" />
+	</bean>
+	<!-- GBV Legal Report -->
+	<bean id="kenyaemr.gbv.legal.report"
+		class="org.openmrs.module.kenyacore.report.HybridReportDescriptor">
+		<property name="targetUuid" value="5b5d19c6-cc23-4d0e-bb38-f49ed8686fc3" />
+		<property name="name" value="GBV Medico-Legal Survivors Linelist " />
+		<property name="description"
+			value="Linelist report for survivors with medico-legal encounters" />
+		<property name="apps">
+			<set>
+				<ref bean="kenyaemr.app.reports" />
+			</set>
+		</property>
+		<property
+			name="template" value="gbv:gbv_legal_template.xls" />
+		<property name="repeatingSection" value="sheet:1,row:2,dataset:gbvLegalEncounterRegister" />
 	</bean>
 	<!--End
 	Report -->

@@ -5,9 +5,9 @@
 
 	<!-- CIHEB Kenya modules App -->
 
-	<bean id="gbv.app.example" factory-bean="kenyacore.appFactoryBean"
+	<bean id="gbv.app.home" factory-bean="kenyacore.appFactoryBean"
 		factory-method="createInstance">
-		<constructor-arg value="gbv.example" />
+		<constructor-arg value="gbv.home" />
 		<constructor-arg value="GBV" />
 		<constructor-arg value="gbv/example/home.page" />
 		<constructor-arg value="gbv:apps/medical.png" />
@@ -17,36 +17,40 @@
 
 	<!-- ===================== Program ===================== -->
 
-	<bean id="kenyaemr.gbv.treatment.program" class="org.openmrs.module.kenyacore.program.ProgramDescriptor">
+	<bean
+		id="kenyaemr.gbv.treatment.program"
+		class="org.openmrs.module.kenyacore.program.ProgramDescriptor">
 		<property name="targetUuid" value="e41c3d74-37c7-4001-9f19-ef9e35224b70" />
-		<!--<property name="eligibilityCalculation" value="org.openmrs.module.kenyaemr.calculation.library.hiv.EligibleForHivProgramCalculation" />
-		<!-<property name="defaultEnrollmentForm" ref="kenyaemr.covid.treatment.form.enrollment" />
-		<property name="defaultCompletionForm" ref="kenyaemr.covid.treatment.form.outcome" />-->
-		<property name="visitForms" >
+
+		<property name="visitForms">
 			<set>
-				<ref bean="gbv.form.pepformformanagementofsurvivors"/>
+				<ref bean="gbv.form.pepformformanagementofsurvivors" />
 			</set>
 		</property>
 		<property name="reports">
 			<set>
-				<!--<ref bean="kenyaemr.cca.pcr.tests.report"/>
-				<ref bean="kenyaemr.cca.rdt.tests.report"/>
-				<ref bean="kenyaemr.cca.daily.qa.report" />-->
-				<ref bean="kenyaemr.gbv.enrollment.report"/>
+				<ref bean="kenyaemr.gbv.enrollment.report" />
 			</set>
 		</property>
-		<!--<property name="fragments">
-			<map>
-				<entry key="enrollment-summary" value="covid19:program/covid/covidInitiationSummary" />
-				<entry key="care-panel" value="covid19:program/covid/covidCarePanel" />
-				<entry key="completion-summary" value="covid19:program/covid/covidOutcomeSummary" />
-			</map>
-		</property>-->
 		<property name="order" value="300" />
 	</bean>
 
+	<!--<bean
+	id="kenyaemr.gbv.config.report"
+		class="org.openmrs.module.kenyacore.report.ReportConfiguration">
+		<property name="commonReports">
+			<set>
+				<ref bean="kenyaemr.gbv.enrollment.report" />
+
+			</set>
+		</property>
+
+	</bean>-->
+
+
 	<!--Reports-->
-	<bean id="kenyaemr.gbv.enrollment.report" class="org.openmrs.module.kenyacore.report.HybridReportDescriptor">
+	<bean id="kenyaemr.gbv.enrollment.report"
+		class="org.openmrs.module.kenyacore.report.HybridReportDescriptor">
 		<property name="targetUuid" value="6f67cb3a-02a5-4267-ac3c-189d492497ca" />
 		<property name="name" value="gbv enrollment report" />
 		<property name="description" value="gbv enrollment report" />
@@ -55,8 +59,11 @@
 				<ref bean="kenyaemr.app.reports" />
 			</set>
 		</property>
+		<property name="template" value="gbv:gbv_template.xls" />
+		<property name="repeatingSection" value="sheet:1,row:2,dataset:gbvEnrollmentRegister" />
 	</bean>
-	<!--End Report -->
+	<!--End
+	Report -->
 
 	<!-- ETL Configuration -->
 
@@ -91,7 +98,7 @@
 		<property name="targetUuid" value="f44b2405-226b-47c4-b98f-b826ea4725ae" />
 		<property name="apps">
 			<set>
-				<ref bean="gbv.app.example" />
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.chart" />
 				<!--<ref
 				bean="kenyaemr.app.clinician" />-->
@@ -107,7 +114,7 @@
 		<property name="targetUuid" value="f760e38c-3d2f-4a5d-aa3d-e9682576efa8" />
 		<property name="apps">
 			<set>
-				<ref bean="gbv.app.example" />
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.chart" />
 				<!--<ref
 				bean="kenyaemr.app.clinician" />-->
@@ -123,7 +130,7 @@
 		<property name="targetUuid" value="d720a8b3-52cc-41e2-9a75-3fd0d67744e5" />
 		<property name="apps">
 			<set>
-				<ref bean="gbv.app.example" />
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.chart" />
 				<!--<ref
 				bean="kenyaemr.app.clinician" />-->
@@ -139,7 +146,7 @@
 		<property name="targetUuid" value="d0c36426-4503-4236-ab5d-39bff77f2b50" />
 		<property name="apps">
 			<set>
-				<ref bean="gbv.app.example" />
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.chart" />
 				<!--<ref
 				bean="kenyaemr.app.clinician" />-->
@@ -154,7 +161,7 @@
 		<property name="targetUuid" value="a0943862-f0fe-483d-9f11-44f62abae063" />
 		<property name="apps">
 			<set>
-				<ref bean="gbv.app.example" />
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.chart" />
 				<!--<ref
 				bean="kenyaemr.app.clinician" />-->
@@ -170,7 +177,7 @@
 		<property name="targetUuid" value="92de9269-6bb4-4c24-8ec9-870aa2c64b5a" />
 		<property name="apps">
 			<set>
-				<ref bean="gbv.app.example" />
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.chart" />
 				<!--<ref
 				bean="kenyaemr.app.clinician" />-->
@@ -185,7 +192,7 @@
 		<property name="targetUuid" value="f37d7e0e-95e8-430d-96a3-8e22664f74d6" />
 		<property name="apps">
 			<set>
-				<ref bean="gbv.app.example" />
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.chart" />
 				<!--<ref
 				bean="kenyaemr.app.clinician" />-->
@@ -201,7 +208,7 @@
 		<property name="targetUuid" value="e983d758-5adf-4917-8172-0f4be4d8116a" />
 		<property name="apps">
 			<set>
-				<ref bean="gbv.app.example" />
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.chart" />
 				<!--<ref
 				bean="kenyaemr.app.clinician" />-->
@@ -218,7 +225,7 @@
 		<property name="targetUuid" value="c46aa4fd-8a5a-4675-90a7-a6f2119f61d8" />
 		<property name="apps">
 			<set>
-				<ref bean="gbv.app.example" />
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.chart" />
 				<!--<ref
 				bean="kenyaemr.app.clinician" />-->
@@ -234,7 +241,7 @@
 		<property name="targetUuid" value="9d21275a-7657-433a-b305-a736423cc496" />
 		<property name="apps">
 			<set>
-				<ref bean="gbv.app.example" />
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.chart" />
 				<!--<ref
 				bean="kenyaemr.app.clinician" />-->

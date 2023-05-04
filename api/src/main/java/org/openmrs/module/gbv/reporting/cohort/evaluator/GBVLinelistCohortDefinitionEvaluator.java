@@ -45,38 +45,6 @@ public class GBVLinelistCohortDefinitionEvaluator implements EncounterQueryEvalu
 		
 		String qry ="select encounter_id from kenyaemr_etl.etl_gbv_consenting where date(visit_date) between date(:startDate) and date(:endDate);";
 
-
-		/*String qry = "select t.patient_id from (select\n" +
-				"\te.uuid,\n" +
-				"\te.encounter_id as encounter_id,\n" +
-				"\te.visit_id as visit_id,\n" +
-				"\te.patient_id,\n" +
-				"\te.location_id,\n" +
-				"\tdate(e.encounter_datetime) as visit_date,\n" +
-				"\te.creator as encounter_provider,\n" +
-				"\te.date_created as date_created,\n" +
-				"    max(if(o.concept_id=165176,(case o.value_coded when 1065 then \"Yes\" when 1066 then \"No\" else \"\" end),null)) as medical_examination,\n" +
-				"    max(if(o.concept_id=161934,(case o.value_coded when 1065 then \"Yes\" when 1066 then \"No\" else \"\" end),null)) as collect_sample,\n" +
-				"    max(if(o.concept_id=165180,(case o.value_coded when 1065 then \"Yes\" when 1066 then \"No\" else \"\" end),null)) as provide_evidence,\n" +
-				"     max(if(o.concept_id=167018,o.value_text,null)) as client_signature,\n" +
-				"    max(if(o.concept_id=165143,o.value_text,null)) as witness_name,\n" +
-				"    max(if(o.concept_id=166847,o.value_text,null)) as witness_signature,\n" +
-				"    max(if(o.concept_id=1473,o.value_text,null)) as provider_name,\n" +
-				"    max(if(o.concept_id=163258,o.value_text,null)) as provider_signature,\n" +
-				"    max(if(o.concept_id=1711,date(o.value_datetime),null)) as date_consented,\n" +
-				"    e.voided as voided\n" +
-				"from encounter e\n" +
-				"\tinner join person p on p.person_id=e.patient_id and p.voided=0\n" +
-				"\tinner join\n" +
-				"\t(\n" +
-				"\t\tselect form_id from form where\n" +
-				"\t\t\tuuid in('d720a8b3-52cc-41e2-9a75-3fd0d67744e5')\n" +
-				"\t) f on f.form_id=e.form_id\n" +
-				"\tleft outer join obs o on o.encounter_id=e.encounter_id and o.voided=0\n" +
-				"\tand o.concept_id in (165176,161934,165180,167018,165143,166847,1473,163258,1711)\n" +
-				"where e.voided=0\n" +
-				"group by e.patient_id, e.encounter_id)t;";  */
-
 		SqlQueryBuilder builder = new SqlQueryBuilder();
 		builder.append(qry);
 		Date startDate = (Date) context.getParameterValue("startDate");
