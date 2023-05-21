@@ -16,9 +16,6 @@ import org.openmrs.module.reporting.evaluation.caching.Caching;
 import org.openmrs.module.reporting.query.BaseQuery;
 import org.openmrs.module.reporting.query.encounter.definition.EncounterQuery;
 
-
-        import java.util.Date;
-
 /**
  * Cervical cancer cohort definition
  */

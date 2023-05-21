@@ -213,7 +213,7 @@ insert into kenyaemr_etl.etl_gbv_legal(
                 action_taken_description,
                 referral_from_gbvrc,
                 in_court ,
-                criminal_suit_no ,
+                criminal_suit_no,
                 case_details,
                 alternate_contact_name,
                 alternate_phonenumber,
@@ -301,7 +301,7 @@ insert into kenyaemr_etl.etl_gbv_pepmanagementforsurvivors(
       hiv_pre_test_counselling_result,
       given_pep,
       referred_to_psc,
-      PDT_result,
+      PDT_test_result,
       emergency_pills,
       emergency_pills_specify,
       sti_prophylaxis_trx,
@@ -312,8 +312,8 @@ insert into kenyaemr_etl.etl_gbv_pepmanagementforsurvivors(
       date_given,
       HBsAG_result,
       LFTs_ALT_result,
-      cretinine_result,
-      other_test_specify_result,
+      creatinine_result,
+      other_specify_result,
       tca_date,
       voided
 )
@@ -347,7 +347,6 @@ select
     max(if(o.concept_id=163045,o.value_text,null)) as state_of_patient_clothing,
     max(if(o.concept_id=160971,o.value_text,null)) as examination_genitalia,
     max(if(o.concept_id=165092,o.value_text,null)) as other_injuries,
-    max(if(o.concept_id=163045,o.value_text,null)) as state_of_patient_clothing,
     max(if(o.concept_id=166141,(case o.value_coded when 703 then "Reactive" when 664 then "Non Reactive"
     when 1138 then "Indeterminate" else "" end),null)) as high_vagina_anal_swab_result,
     max(if(o.concept_id=299,(case o.value_coded when 1229 then "Non Reactive" when 1228 then "Reactive"
@@ -357,7 +356,7 @@ select
     max(if(o.concept_id=165171,(case o.value_coded when 1065 then "Yes" else "" end),null)) as given_pep,
     max(if(o.concept_id=165270,(case o.value_coded when 1065 then "Yes" else "" end),null)) as referred_to_psc,
     max(if(o.concept_id=160888,(case o.value_coded when 664 then "Non Reactive" when 703 then "Reactive"
-            else "" end),null)) as PDT_result,
+            else "" end),null)) as PDT_test_result,
     max(if(o.concept_id=165167,(case o.value_coded when 1065 then "Issued" when 1066 then "Not Issued"
         else "" end),null)) as emergency_pills,
     max(if(o.concept_id=160138,o.value_text,null)) as emergency_pills_specify,
@@ -373,8 +372,8 @@ select
     max(if(o.concept_id=161472,(case o.value_coded when 664 then "Non Reactive" when 1066 then "Reactive"
         else "" end),null)) as HBsAG_result,
     max(if(o.concept_id=654,o.value_numeric,null)) as LFTs_ALT_result,
-    max(if(o.concept_id=790,o.value_numeric,null)) as cretinine_result,
-    max(if(o.concept_id=160987,o.value_text,null)) as  other_test_specify_result,
+    max(if(o.concept_id=790,o.value_numeric,null)) as creatinine_result,
+    max(if(o.concept_id=160987,o.value_text,null)) as  other_specify_result,
     max(if(o.concept_id=160753,date(o.value_datetime),null)) as tca_date,
     e.voided
 from encounter e
@@ -384,8 +383,7 @@ from encounter e
     (166848,165416,5090,5089,1427,165205,165138,123160,165349,165230,167214,164848,159427,
 	1639,163042,163045,160971,165092,166141,299,163760,165171,165270,160888,165167,160138,160968,165200,
 	160953,164845,160954,1263,166865,161472,654,790,160987,160753)
-where e.voided=0
-group by e.patient_id, e.encounter_id;
+where e.voided=0 group by e.patient_id, e.encounter_id;
 
 SELECT "Completed processing gbv_pepmanagementforsurvivor data ", CONCAT("Time: ", NOW());
 END $$
@@ -537,8 +535,8 @@ END $$
 
 
 -- Populate etl gbv_occupationalexposure--
-DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_occupationalexposure $$
-CREATE PROCEDURE sp_populate_etl_gbv_occupationalexposure()
+DROP PROCEDURE IF EXISTS sp_populate_etl_gbv_pepmanagement_occupationalexposure $$
+CREATE PROCEDURE sp_populate_etl_gbv_pepmanagement_occupationalexposure() 
 BEGIN
 SELECT "Processing gbv_occupationalexposure data", CONCAT("Time: ", NOW());
 insert into  kenyaemr_etl.etl_gbv_pepmanagement_occupationalexposure(
@@ -743,6 +741,7 @@ insert into kenyaemr_etl.etl_gbv_physicalemotional_violence(
             referred_from,
             referred_from_specify,
             type_of_violence,
+            specify_type_of_violence,
             trauma_counselling,
             trauma_counselling_comment,
             sti_screening_tx,
@@ -775,6 +774,7 @@ select
     max(if(o.concept_id=165092,o.value_text,null)) as referred_from_specify,
     max(if(o.concept_id=165205,case o.value_coded when 158358 then "physical violence" when 117510 then "Emotional"
 	 else "" end,null)) as type_of_violence,
+    max(if(o.concept_id=165092,o.value_text,null)) as specify_type_of_violence,
     max(if(o.concept_id=165184,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as trauma_counselling,
 	max(if(o.concept_id=161011,o.value_text,null)) as trauma_counselling_comment,
 	max(if(o.concept_id=165172,case o.value_coded when 1065 then "Yes" when 1066 then "No" else "" end,null)) as sti_screening_tx,
@@ -819,7 +819,6 @@ SET populate_script_id = LAST_INSERT_ID();
 
 CALL sp_populate_etl_gbv_consenting();
 CALL sp_populate_etl_gbv_legal_encounter();
-CALL sp_populate_etl_gbv_pepmanagementforsurvivor();
 CALL sp_populate_etl_gbv_pepmanagement_nonoccupationalexposure();
 CALL sp_populate_etl_gbv_pepmanagement_occupationalexposure();
 CALL sp_populate_etl_gbv_pepmanagement_followup();
@@ -827,6 +826,7 @@ CALL sp_populate_etl_gbv_perpetratorencounter();
 CALL sp_populate_etl_gbv_counsellingencounter();
 CALL sp_populate_etl_gbv_linkage();
 CALL sp_populate_etl_gbv_physicalemotional_violence();
+CALL sp_populate_etl_gbv_pepmanagementforsurvivor();
 
 
 UPDATE kenyaemr_etl.etl_script_status SET stop_time=NOW() where id= populate_script_id;

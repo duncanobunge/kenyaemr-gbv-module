@@ -1,12 +1,4 @@
-/**
- * This Source Code Form is subject to the terms of the Mozilla Public License,
- * v. 2.0. If a copy of the MPL was not distributed with this file, You can
- * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
- * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
- *
- * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
- * graphic logo is a trademark of OpenMRS Inc.
- */
+
 package org.openmrs.module.gbv.reporting.builder;
 
 import java.util.Arrays;
@@ -87,7 +79,6 @@ public class GBVLinelistReportBuilder extends AbstractReportBuilder {
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
 		PersonAttributeType phoneNumber = MetadataUtils.existing(PersonAttributeType.class,
 		    CommonMetadata._PersonAttributeType.TELEPHONE_CONTACT);
-
 		dsd.addColumn("Name", nameDef, "");
 		dsd.addColumn("id", new PatientIdDataDefinition(), "");
 		dsd.addColumn("Date of Birth", new BirthdateDataDefinition(), "", new BirthdateConverter(DATE_FORMAT));
@@ -100,7 +91,6 @@ public class GBVLinelistReportBuilder extends AbstractReportBuilder {
 		        new RegistrationSubCountyAddressCalculation()), "", new GeneralCalculationResultConverter());
 		dsd.addColumn("Village/Estate of residence", new CalculationDataDefinition("Village/Estate of residence",
 				new PersonAddressCalculation()), "", new GeneralCalculationResultConverter());
-		
 		dsd.addColumn("Medical Examination", new GbvClientMedicalExaminationDataDefinition(), "");
 		dsd.addColumn("Collect Sample", new GbvClientConsentingCollectSampleDataDefinition(), "");
 		dsd.addColumn("Provide Evidence", new GbvClientConsentingProvideEvidenceDataDefinition(), "");

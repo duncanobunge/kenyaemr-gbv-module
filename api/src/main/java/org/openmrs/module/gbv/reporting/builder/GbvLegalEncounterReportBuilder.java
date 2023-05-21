@@ -111,7 +111,6 @@ public class GbvLegalEncounterReportBuilder extends AbstractReportBuilder {
 		
 
 		// new columns 
-
 		GbvLegalEncounterCohortDefinition cd = new GbvLegalEncounterCohortDefinition();
 		cd.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		cd.addParameter(new Parameter("endDate", "End Date", Date.class));

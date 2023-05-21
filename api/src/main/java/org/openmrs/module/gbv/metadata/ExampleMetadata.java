@@ -134,7 +134,7 @@ public class ExampleMetadata extends AbstractMetadataBundle {
 		install(form("SGBV PSYCHOLOGICAL ASSESSMENT(MOH 363 part B)", null, _EncounterType.GBVPSYCHOLOGICALASSESSMENTFORM, "1", _Form.GBVPSYCHOLOGICALASSESSMENTFORM));
 
 	   //install program
-		install(program("GBV Treatment", "GBV Treatment Program", _Concept.GBV_TREATMENT,
+		install(program("GBV", "GBV Treatment Program", _Concept.GBV_TREATMENT,
 				_Program.GBV_TREATMENT));
 
 	}

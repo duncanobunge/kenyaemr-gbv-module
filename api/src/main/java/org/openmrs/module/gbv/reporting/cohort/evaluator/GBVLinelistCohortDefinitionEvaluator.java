@@ -27,7 +27,7 @@ import org.openmrs.module.reporting.query.encounter.evaluator.EncounterQueryEval
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Evaluator for patients enrolled in covid treatment program: CCA
+ * Evaluator
  */
 @Handler(supports = { GBVLinelistCohortDefinition.class })
 public class GBVLinelistCohortDefinitionEvaluator implements EncounterQueryEvaluator {

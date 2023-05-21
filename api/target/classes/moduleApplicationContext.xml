@@ -31,6 +31,9 @@
 			<set>
 				<ref bean="kenyaemr.gbv.enrollment.report" />
 				<ref bean="kenyaemr.gbv.legal.report" />
+				<ref bean="kenyaemr.gbv.perpetrator.report" />
+				<ref bean="kenyaemr.gbv.physicalemotional.report" />
+				<ref bean="kenyaemr.gbv.pepmanagementforsurvivors.report" />
 			</set>
 		</property>
 		<property name="order" value="300" />
@@ -66,6 +69,7 @@
 		<property name="template" value="gbv:gbv_template.xls" />
 		<property name="repeatingSection" value="sheet:1,row:2,dataset:gbvEnrollmentRegister" />
 	</bean>
+
 	<!-- GBV Legal Report -->
 	<bean id="kenyaemr.gbv.legal.report"
 		class="org.openmrs.module.kenyacore.report.HybridReportDescriptor">
@@ -81,6 +85,57 @@
 		<property
 			name="template" value="gbv:gbv_legal_template.xls" />
 		<property name="repeatingSection" value="sheet:1,row:2,dataset:gbvLegalEncounterRegister" />
+	</bean>
+
+	<!-- GBV Perpetrator Report -->
+	<bean id="kenyaemr.gbv.perpetrator.report"
+		class="org.openmrs.module.kenyacore.report.HybridReportDescriptor">
+		<property name="targetUuid" value="45ce23eb-100c-49ec-b072-3029072c444a" />
+		<property name="name" value="Perpetrator Linelist" />
+		<property name="description"
+			value="Linelist report for perpetrators encounter" />
+		<property name="apps">
+			<set>
+				<ref bean="kenyaemr.app.reports" />
+			</set>
+		</property>
+		<!--<property
+			name="template" value="gbv:gbv_legal_template.xls" />
+		<property name="repeatingSection" value="sheet:1,row:2,dataset:gbvLegalEncounterRegister" />-->
+	</bean>
+
+	<!-- GBV PhysicalEmotional Report -->
+	<bean id="kenyaemr.gbv.physicalemotional.report"
+		class="org.openmrs.module.kenyacore.report.HybridReportDescriptor">
+		<property name="targetUuid" value="0b9063f7-0eeb-489d-9efd-55805b5b4428" />
+		<property name="name" value="Physical/Emotional Survivors Linelist" />
+		<property name="description"
+			value="Linelist report for physical-emotional encounter services" />
+		<property name="apps">
+			<set>
+				<ref bean="kenyaemr.app.reports" />
+			</set>
+		</property>
+		<!--<property
+			name="template" value="gbv:gbv_legal_template.xls" />
+		<property name="repeatingSection" value="sheet:1,row:2,dataset:gbvLegalEncounterRegister" />-->
+	</bean>
+
+	<!--Pep
+	management Report-->
+	<bean id="kenyaemr.gbv.pepmanagementforsurvivors.report"
+		class="org.openmrs.module.kenyacore.report.HybridReportDescriptor">
+		<property name="targetUuid" value="9e7c2530-3b40-49ed-b625-51bbda3a1140" />
+		<property name="name" value="PeP Management for Survivors" />
+		<property name="description" value="Linelist of Survivors on PeP management" />
+		<property name="apps">
+			<set>
+				<ref bean="kenyaemr.app.reports" />
+			</set>
+		</property>
+		<!--<property
+		name="template" value="gbv:gbv_template.xls" />
+		<property name="repeatingSection" value="sheet:1,row:2,dataset:gbvEnrollmentRegister" />-->
 	</bean>
 	<!--End
 	Report -->
