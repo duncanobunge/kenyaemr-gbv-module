@@ -23,7 +23,7 @@ public class GbvPreTestHIVCounsellingDataEvaluator implements EncounterDataEvalu
 
     public EvaluatedEncounterData evaluate(EncounterDataDefinition definition, EvaluationContext context) throws EvaluationException {
         EvaluatedEncounterData c = new EvaluatedEncounterData(definition, context);
-		String qry = "select encounter_id,hiv_pre_test_counselling_result from etl_gbv_pepmanagementforsurvivors;";
+		String qry = "select encounter_id,hiv_pre_test_counselling_result from kenyaemr_etl.etl_gbv_pepmanagementforsurvivors;";
 
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();

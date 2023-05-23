@@ -22,7 +22,7 @@ public class GbvSTIProphylaxisTrxDataEvaluator implements EncounterDataEvaluator
 
     public EvaluatedEncounterData evaluate(EncounterDataDefinition definition, EvaluationContext context) throws EvaluationException {
         EvaluatedEncounterData c = new EvaluatedEncounterData(definition, context);
-		String qry = "select encounter_id,sti_prophylaxis_trx from etl_gbv_pepmanagementforsurvivors;";
+		String qry = "select encounter_id,sti_prophylaxis_trx from kenyaemr_etl.etl_gbv_pepmanagementforsurvivors;";
 
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();

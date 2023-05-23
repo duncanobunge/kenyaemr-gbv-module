@@ -22,7 +22,7 @@ public class GbvDateTimeIncidenceDataEvaluator implements EncounterDataEvaluator
 
     public EvaluatedEncounterData evaluate(EncounterDataDefinition definition, EvaluationContext context) throws EvaluationException {
         EvaluatedEncounterData c = new EvaluatedEncounterData(definition, context);
-		String qry = "select encounter_id,date(date_time_incidence) from etl_gbv_pepmanagementforsurvivors;";
+		String qry = "select encounter_id,date(date_time_incidence) from kenyaemr_etl.etl_gbv_pepmanagementforsurvivors;";
 
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();

@@ -23,7 +23,7 @@ public class GbvReferredToPSCDataEvaluator implements EncounterDataEvaluator {
 
     public EvaluatedEncounterData evaluate(EncounterDataDefinition definition, EvaluationContext context) throws EvaluationException {
         EvaluatedEncounterData c = new EvaluatedEncounterData(definition, context);
-		String qry = "select encounter_id,referred_to_psc from etl_gbv_pepmanagementforsurvivors;";
+		String qry = "select encounter_id,referred_to_psc from kenyaemr_etl.etl_gbv_pepmanagementforsurvivors;";
 
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();

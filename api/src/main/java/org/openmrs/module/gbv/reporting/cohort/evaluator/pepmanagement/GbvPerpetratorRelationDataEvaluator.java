@@ -20,7 +20,7 @@ public class GbvPerpetratorRelationDataEvaluator implements EncounterDataEvaluat
 
     public EvaluatedEncounterData evaluate(EncounterDataDefinition definition, EvaluationContext context) throws EvaluationException {
         EvaluatedEncounterData c = new EvaluatedEncounterData(definition, context);
-		String qry = "select encounter_id,relation_to_perpetrator from etl_gbv_pepmanagementforsurvivors;";
+		String qry = "select encounter_id,relation_to_perpetrator from kenyaemr_etl.etl_gbv_pepmanagementforsurvivors;";
 
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();

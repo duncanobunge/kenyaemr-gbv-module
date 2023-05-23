@@ -21,7 +21,7 @@ public class GbvEmergencePillDataEvaluator implements EncounterDataEvaluator {
 
     public EvaluatedEncounterData evaluate(EncounterDataDefinition definition, EvaluationContext context) throws EvaluationException {
         EvaluatedEncounterData c = new EvaluatedEncounterData(definition, context);
-		String qry = "select encounter_id,emergency_pills from etl_gbv_pepmanagementforsurvivors;";
+		String qry = "select encounter_id,emergency_pills from kenyaemr_etl.etl_gbv_pepmanagementforsurvivors;";
 
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();

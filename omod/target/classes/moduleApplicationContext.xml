@@ -34,6 +34,7 @@
 				<ref bean="kenyaemr.gbv.perpetrator.report" />
 				<ref bean="kenyaemr.gbv.physicalemotional.report" />
 				<ref bean="kenyaemr.gbv.pepmanagementforsurvivors.report" />
+				<ref bean="kenyaemr.gbv.pepfollowup.report" />
 			</set>
 		</property>
 		<property name="order" value="300" />
@@ -128,6 +129,23 @@
 		<property name="targetUuid" value="9e7c2530-3b40-49ed-b625-51bbda3a1140" />
 		<property name="name" value="PeP Management for Survivors" />
 		<property name="description" value="Linelist of Survivors on PeP management" />
+		<property name="apps">
+			<set>
+				<ref bean="kenyaemr.app.reports" />
+			</set>
+		</property>
+		<!--<property
+		name="template" value="gbv:gbv_template.xls" />
+		<property name="repeatingSection" value="sheet:1,row:2,dataset:gbvEnrollmentRegister" />-->
+	</bean>
+
+	<!--Pep
+	follow up Report-->
+	<bean id="kenyaemr.gbv.pepfollowup.report"
+		class="org.openmrs.module.kenyacore.report.HybridReportDescriptor">
+		<property name="targetUuid" value="136f9f7c-40a7-4386-a42d-d051e5ec2e86" />
+		<property name="name" value="PeP Follow Up " />
+		<property name="description" value="Linelist of Patient who has PeP follow up encounters" />
 		<property name="apps">
 			<set>
 				<ref bean="kenyaemr.app.reports" />

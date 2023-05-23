@@ -20,7 +20,7 @@ public class GbvDateGivenStarterPackDataEvaluator implements EncounterDataEvalua
 
     public EvaluatedEncounterData evaluate(EncounterDataDefinition definition, EvaluationContext context) throws EvaluationException {
         EvaluatedEncounterData c = new EvaluatedEncounterData(definition, context);
-		String qry = "select encounter_id,date(date_given) from etl_gbv_pepmanagementforsurvivors;";
+		String qry = "select encounter_id,date(date_given) from kenyaemr_etl.etl_gbv_pepmanagementforsurvivors;";
 
 
         SqlQueryBuilder queryBuilder = new SqlQueryBuilder();
