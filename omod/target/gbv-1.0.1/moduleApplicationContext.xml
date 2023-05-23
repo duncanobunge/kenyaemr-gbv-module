@@ -21,10 +21,13 @@
 		id="kenyaemr.gbv.treatment.program"
 		class="org.openmrs.module.kenyacore.program.ProgramDescriptor">
 		<property name="targetUuid" value="e41c3d74-37c7-4001-9f19-ef9e35224b70" />
-
+		<property name="eligibilityCalculation"
+			value="org.openmrs.module.gbv.calculation.EligibleForExampleProgramCalculation" />
+		<property name="defaultEnrollmentForm" ref="gbv.form.gbvconsentform" />
+		<property name="defaultCompletionForm" ref="gbv.form.gbvlinkageform" />
 		<property name="visitForms">
 			<set>
-				<ref bean="gbv.form.pepformformanagementofsurvivors" />
+				<ref bean="gbv.form.gbvpepfollowupform" />
 			</set>
 		</property>
 		<property name="reports">
@@ -39,18 +42,6 @@
 		</property>
 		<property name="order" value="300" />
 	</bean>
-
-	<!--<bean
-	id="kenyaemr.gbv.config.report"
-		class="org.openmrs.module.kenyacore.report.ReportConfiguration">
-		<property name="commonReports">
-			<set>
-				<ref bean="kenyaemr.gbv.enrollment.report" />
-
-			</set>
-		</property>
-
-	</bean>-->
 
 
 	<!--Begin
@@ -157,6 +148,7 @@
 	</bean>
 	<!--End
 	Report -->
+
 
 	<!-- ETL Configuration -->
 
@@ -344,6 +336,22 @@
 		<property name="htmlform" value="gbv:gbvpsychologicalassessmentform.html" />
 	</bean>
 
+	<!-- GBVPEPFOLLOWUPFORM -->
+	<bean id="gbv.form.gbvpepfollowupform"
+		class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="155ccbe2-a33f-4a58-8ce6-57a7372071ee" />
+		<property name="apps">
+			<set>
+				<ref bean="gbv.app.home" />
+				<ref bean="kenyaemr.app.chart" />
+				<!--<ref
+				bean="kenyaemr.app.clinician" />-->
+			</set>
+		</property>
+		<property name="icon" value="gbv:forms/example.png" />
+		<property name="htmlform" value="gbv:pepfollowupencounterform.html" />
+	</bean>
+
 
 	<bean id="gbv.config.form"
 		class="org.openmrs.module.kenyacore.form.FormConfiguration">
@@ -359,6 +367,7 @@
 				<ref bean="gbv.form.gbvperpetratordetailform" />
 				<ref bean="gbv.form.gbvtraumacounsellingform" />
 				<ref bean="gbv.form.gbvpostrapecareform" />
+				<ref bean="gbv.form.gbvpepfollowupform" />
 				<ref bean="gbv.form.gbvpsychologicalassessmentform" />
 			</set>
 		</property>

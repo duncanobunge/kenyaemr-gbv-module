@@ -56,13 +56,15 @@ public class ExampleMetadata extends AbstractMetadataBundle {
 		//GBVPOSTRAPECAREFORM ENCOUNTER
 		public  static final String GBVPOSTRAPECAREFORM ="e571c807-8fcc-4bc3-bc64-4ed372b348e4";
 		//GBVPSYCHOLOGICALASSESSMENTFORM ENCOUNTER
-		public  static final String GBVPSYCHOLOGICALASSESSMENTFORM ="b5ab0a6b-9425-44da-b0d9-242f609f1605";
+		public static final String GBVPSYCHOLOGICALASSESSMENTFORM = "b5ab0a6b-9425-44da-b0d9-242f609f1605";
+		//GBVPSYCHOLOGICALASSESSMENTFORM ENCOUNTER
+		public static final String GBVPEPFOLLOWUPFORM="24c11d80-986d-4f13-9086-d0a01a84dae3";
 
 	}
 
 	public static class _Form {
 		//GBVPEPFORMMANAGEMENTOFSURVIVORSFOLLOWUP
-		//public static final String GBVPEPFORMMANAGEMENTOFSURVIVORSFOLLOWUP="b59f2291-1e99-4c00-840b-6a3ff666ddae";
+		public static final String GBVPEPFOLLOWUPFORM="155ccbe2-a33f-4a58-8ce6-57a7372071ee";
 		//GBVPHYSICALEMOTIONALFORM
 		public static final String GBVPHYSICALEMOTIONALFORM="a0943862-f0fe-483d-9f11-44f62abae063";
 		//GBVLEGALFORM
@@ -92,6 +94,10 @@ public class ExampleMetadata extends AbstractMetadataBundle {
 	 */
 	@Override
 	public void install() {
+		//GBVPEPFOLLOWUPFORM
+		install(encounterType("GBVPEPFOLLOWUP Encounter", "GBVPEPFOLLOWUP Encounter", _EncounterType.GBVPEPFOLLOWUPFORM));
+		install(form("PEP FOllowup Encounter Form", null, _EncounterType.GBVPEPFOLLOWUPFORM, "1", _Form.GBVPEPFOLLOWUPFORM));
+
 
 		//GBVPHYSICALEMOTIONALFORM
 		install(encounterType("GBVPHYSICALEMOTIONALFORM Encounter", "GBVPHYSICALEMOTIONALFORM Encounter", _EncounterType.GBVPHYSICALEMOTIONALFORM));
