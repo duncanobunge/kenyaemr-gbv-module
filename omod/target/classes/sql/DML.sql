@@ -712,7 +712,7 @@ select
     e.voided
 from encounter e
 	inner join person p on p.person_id=e.patient_id and p.voided=0
-	inner join form f on f.form_id=e.form_id and f.uuid ="839f3bb3-0b93-4afa-a2fc-739fd7012d18"
+	inner join form f on f.form_id=e.form_id and f.uuid ="155ccbe2-a33f-4a58-8ce6-57a7372071ee"
 	left outer join obs o on o.encounter_id=e.encounter_id and o.voided=0 and o.concept_id in (1724,161472,165384,164848,159427,790,654,
 	160689,165171,166664,160753)
 where e.voided=0
@@ -792,7 +792,7 @@ select
 	e.voided
 from encounter e
 	inner join person p on p.person_id=e.patient_id and p.voided=0
-	inner join form f on f.form_id=e.form_id and f.uuid ="9d21275a-7657-433a-b305-a736423cc496"
+	inner join form f on f.form_id=e.form_id and f.uuid ="a0943862-f0fe-483d-9f11-44f62abae063"
 	left outer join obs o on o.encounter_id=e.encounter_id and o.voided=0 and o.concept_id in (165416,1272,165092,165205,160632,165184,161011,165172,160632,167229,165435
 	,164848,164963,1379,165426,161601,167214,1885,160753)
 where e.voided=0
