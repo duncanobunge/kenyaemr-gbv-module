@@ -466,9 +466,9 @@
                  </tr>
                 <tr>
                     <td>LMP</td>
-                    <td>
+                    <!--<td>
                         <obs id="lmp-date" conceptId="1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-                    </td>
+                    </td>-->
                     <td>
                         <recentObs conceptId="1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
                     </td>
@@ -489,6 +489,10 @@
             </legend>
             <table class="simple-table" id="adherence-6">
                 <tr>
+                    <th></th>
+                    <th>Current</th>
+                </tr>
+                <tr>
                     <td>Blood pressure</td>
                     <td>
                         <obs conceptId="5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
@@ -500,20 +504,38 @@
                 <tr>
                     <td>Pulse Rate</td>
                     <td>
-                        <obs conceptId="5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                        <recentObs conceptId="5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Respiratory Rate</td>
                     <td>
-                        <obs conceptId="5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                        <recentObs conceptId="5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Temperature</td>
                     <td>
-                        <obs conceptId="5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-                        &#176;C
+                        <recentObs conceptId="5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>&#176;C
+                    </td>
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td>
+                        <recentObs conceptId="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/> kg
+                    </td>
+                </tr>
+                <tr>
+                    <td>Height</td>
+                    <td>
+                        <recentObs conceptId="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/> cm
+                    </td>
+                </tr>
+                <tr>
+                    <td>MUAC</td>
+
+                    <td>
+                        <recentObs conceptId="1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
                     </td>
                 </tr>
                 <tr>
@@ -851,9 +873,9 @@
                 </tr>
                 <tr>
                     <td>To:&nbsp;Police officer name</td>
-                    <td><obs required="true" conceptId="165142" /></td>
+                    <td><obs required="false" conceptId="165142" /></td>
                     <td>Signature of police officer</td>
-                    <td><obs required="true" conceptId="166847" /></td>
+                    <td><obs required="false" conceptId="166847" /></td>
                 </tr>
             </table>
         </fieldset>

@@ -18,6 +18,7 @@
             //Defaults
             jq("#row-pep-completed").hide();
             jq("#row-hiv-test").hide();
+            jq("#row-pdt-test").hide();
             jq("#row-hbag-test").hide();
             jq("#row-lfts").hide();
             jq("#row-creatinine").hide();
@@ -32,6 +33,7 @@
             //Referred by selected
             jq("#pep-completed :input[type=radio]").change(onPePCompletedSelected);
             jq("#hiv-test-done :input[type=radio]").change(onHIVTestDoneSelected);
+            jq("#pdt-test-done :input[type=radio]").change(onPDTTestDoneSelected);
             jq("#hbag-test :input[type=radio]").change(onhbagTestSelected);
             jq("#visit-number select").change(onSelectVisit);
           });
@@ -56,6 +58,17 @@
             }
         };
 
+        var onPDTTestDoneSelected = function () {
+            var val = jq(this).val();
+            if (val == 1065 ){
+                jq("#tbl-pdt-test-result").show();
+            }else {
+                jq("#tbl-pdt-test-result").hide();
+                clearHiddenSections(jq("#tbl-pdt-test-result"));
+            }
+        };
+
+
          var onSelectVisit = function () {
             var val = jq(this).val();
             if (val == 1722 ){
@@ -66,6 +79,7 @@
            else if (val == 165307){
                 jq("#row-pep-completed").show();
                 jq("#row-hiv-test").show();
+                jq("#row-pdt-test").show();
                 jq("#row-tca").show();
             }
           else if (val == 1721){
@@ -81,6 +95,9 @@
 
                 jq("#row-hiv-test").hide();
                 clearHiddenSections(jq("#row-hiv-test"));
+
+                jq("#row-pdt-test").hide();
+                clearHiddenSections(jq("#row-pdt-test"));
 
                 jq("#row-hbag-test").hide();
                 clearHiddenSections(jq("#row-hbag-test"));
@@ -132,6 +149,7 @@
             //Defaults
             jq("#row-pep-completed").hide();
             jq("#row-hiv-test").hide();
+            jq("#row-pdt-test").hide();
             jq("#row-hbag-test").hide();
             jq("#row-lfts").hide();
             jq("#row-creatinine").hide();
@@ -146,6 +164,7 @@
             //Referred by selected
             jq("#pep-completed :input[type=radio]").change(onPePCompletedSelected);
             jq("#hiv-test-done :input[type=radio]").change(onHIVTestDoneSelected);
+            jq("#pdt-test-done :input[type=radio]").change(onPDTTestDoneSelected);
             jq("#hbag-test :input[type=radio]").change(onhbagTestSelected);
             jq("#visit-number select").change(onSelectVisit);
           });
@@ -180,6 +199,7 @@
            else if (val == 165307){
                 jq("#row-pep-completed").show();
                 jq("#row-hiv-test").show();
+                jq("#row-pdt-test").show();
                 jq("#row-tca").show();
             }
           else if (val == 1721){
@@ -195,6 +215,9 @@
 
                 jq("#row-hiv-test").hide();
                 clearHiddenSections(jq("#row-hiv-test"));
+
+                jq("#row-pdt-test").hide();
+                clearHiddenSections(jq("#row-pdt-test"));
 
                 jq("#row-hbag-test").hide();
                 clearHiddenSections(jq("#row-hbag-test"));
@@ -288,8 +311,8 @@
                     </td>
                 </tr>
                 <tr id="row-hiv-test">
-                    <td><b>HIV Test done?</b></td>
-                    <td><obs id="hiv-test-done" conceptId="164848" answerLabels="Yes,No" answerConceptIds="1065,1066" style="radio" /></td>
+                    <td><b>HIV Test?</b></td>
+                    <td><obs id="hiv-test-done" conceptId="164848" answerLabels="Done,Not Done" answerConceptIds="1065,1066" style="radio" /></td>
 
                     <td>
                         <table class="simple-table" id="tbl-hiv-test-result">
@@ -297,6 +320,19 @@
                                 <td><b>HIV test result</b></td>
                                 <td><obs  conceptId="159427" answerLabels="Negative,Positive" answerConceptIds="664,703" style="radio" /></td>
 
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr id="row-pdt-test">
+                    <td><b>PDT test?</b></td>
+                    <td><obs id="pdt-test-done" conceptId="163951" answerLabels="Done,Not Done" answerConceptIds="1065,1066" style="radio" /></td>
+
+                    <td>
+                        <table class="simple-table" id="tbl-pdt-test-result">
+                            <tr>
+                                <td><b>PDT test result</b></td>
+                                <td><obs  conceptId="167229" answerLabels="Negative,Positive" answerConceptIds="703,664" style="radio" /></td>
                             </tr>
                         </table>
                     </td>

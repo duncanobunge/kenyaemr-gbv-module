@@ -171,7 +171,7 @@
 	Report -->
 
 
-	<!-- ETL Configuration 
+	<!-- ETL Configuration -->
 
 	<bean id="kenyaemr.gbv.etl.routines" class="org.openmrs.module.kenyacore.etl.ETLConfiguration">
 		<property name="ddlProcedures">
@@ -189,13 +189,13 @@
 				<value>sp_gbv_scheduled_updates</value>
 			</set>
 		</property>
-		<property
+		<!--<property
 		name="dataToolDbProcedures">
                     <set>
 		<value>create_datatools_tables</value>
                     </set>
-          </property>
-	</bean>-->
+          </property>-->
+	</bean>
 
 	<!-- GBVPEPFORMFORMANAGEMENTOFSURVIVOR app -->
 

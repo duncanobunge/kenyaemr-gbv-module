@@ -372,7 +372,52 @@
 		<property name="icon" value="gbv:forms/example.png" />
 		<property name="htmlform" value="gbv:pepfollowupencounterform.html" />
 	</bean>
+	<!-- GBVADDITIONALNOTEFORM -->
+	<bean id="gbv.form.gbvadditionalnoteform"
+		class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="8aa47081-ea77-4dac-aacf-145835cf7286" />
+		<property name="apps">
+			<set>
+				<ref bean="gbv.app.home" />
+				<ref bean="kenyaemr.app.chart" />
+				<!--<ref
+				bean="kenyaemr.app.clinician" />-->
+			</set>
+		</property>
+		<property name="icon" value="gbv:forms/example.png" />
+		<property name="htmlform" value="gbv:progressNote.html" />
+	</bean>
+	<!-- GBVTRIAGEFORM -->
+	<bean id="gbv.form.gbvtriageform"
+		class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="2f4beb15-b646-4c99-9833-55e116b6aad3" />
+		<property name="apps">
+			<set>
+				<ref bean="gbv.app.home" />
+				<ref bean="kenyaemr.app.chart" />
+				<!--<ref
+				bean="kenyaemr.app.clinician" />-->
+			</set>
+		</property>
+		<property name="icon" value="gbv:forms/example.png" />
+		<property name="htmlform" value="gbv:triage.html" />
+	</bean>
 
+	<!-- GBVOCCUPATIONALPEPEXPOSUREFORM -->
+	<bean id="gbv.form.gbvoccupationalpepexposureform"
+		class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="556718da-7564-4286-a081-c50f8e4b6504" />
+		<property name="apps">
+			<set>
+				<ref bean="gbv.app.home" />
+				<ref bean="kenyaemr.app.chart" />
+				<!--<ref
+				bean="kenyaemr.app.clinician" />-->
+			</set>
+		</property>
+		<property name="icon" value="gbv:forms/example.png" />
+		<property name="htmlform" value="gbv:pepforoccupationalexposurepatientform.html" />
+	</bean>
 
 	<bean id="gbv.config.form"
 		class="org.openmrs.module.kenyacore.form.FormConfiguration">
@@ -390,6 +435,9 @@
 				<ref bean="gbv.form.gbvpostrapecareform" />
 				<ref bean="gbv.form.gbvpepfollowupform" />
 				<ref bean="gbv.form.gbvpsychologicalassessmentform" />
+				<ref bean="gbv.form.gbvadditionalnoteform" />
+				<ref bean="gbv.form.gbvtriageform" />
+				<ref bean="gbv.form.gbvoccupationalpepexposureform" />
 			</set>
 		</property>
 
