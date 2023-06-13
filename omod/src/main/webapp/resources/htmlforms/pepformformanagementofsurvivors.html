@@ -299,48 +299,36 @@
                 <tr>
                     <td><b>Reporting Date and Time</b></td>
                     <td><obs required="true" conceptId="166848" size="30" /></td>
-                    <td>PRC Number <strong>(format:PRC#-10-2022-00001 )</strong></td>
+                    <td>PRC Number <strong>(format:PRC-MFLCODE-YY-00001 )</strong></td>
                     <td><obs required="true" id="prc-number" conceptId="1646" size="30"/></td>
-                </tr>
-                <tr>
-                    <table class="simple-table" >
-                        <tr>
-                            <th></th>
-                            <th>Current</th>
-                            <th>Recent</th>
-                        </tr>
-                        <tr>
-                            <td>Weight</td>
-                            <td>
-                                <obs id="weight" conceptId="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" required="true"/>
-                                kg
-                            </td>
-                            <td>
-                                <recentObs conceptId="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Height</td>
-                            <td>
-                                <obs id="height" conceptId="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" required="true"/>
-                                cm
-                            </td>
-                            <td>
-                                <recentObs conceptId="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-                            </td>
-                        </tr>
-                        <includeIf velocityTest="$patient.gender == 'F' ">
+                   <td>
+                        <table class="simple-table" >
                             <tr>
-                                <td>LMP</td>
+                                <th></th>
+                                <th>Current Vitals</th>
+                            </tr>
+                            <tr>
+                                <td>Weight</td>
                                 <td>
-                                    <obs id="lmp-date" conceptId="1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
-                                </td>
-                                <td>
-                                    <recentObs conceptId="1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                    <recentObs conceptId="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/> Kg
                                 </td>
                             </tr>
-                        </includeIf>
-                    </table>
+                            <tr>
+                                <td>Height</td>
+                                <td>
+                                    <recentObs conceptId="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/> Cm
+                                </td>
+                            </tr>
+                            <includeIf velocityTest="$patient.gender == 'F' ">
+                                <tr>
+                                    <td>LMP</td>
+                                    <td>
+                                        <recentObs conceptId="1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                    </td>
+                                </tr>
+                            </includeIf>
+                        </table>
+                    </td>
                 </tr>
             </table>
         </fieldset>
@@ -351,8 +339,9 @@
             </legend>
             <table class="simple-table" id="adherence-3">
                 <tr>
-                    <td>Type of Violence</td>
-                    <td>
+                    <td><b>Reporting Date and Time</b> &nbsp; <obs required="true" conceptId="166848" size="30" /></td>
+
+                    <td><strong>Type of Violence</strong> &nbsp;
                         <obs required="true" conceptId="165205"
                              answerLabels="Rape,Defilement,Other"
                              answerConceptIds="127910,145691,5622"
@@ -362,13 +351,12 @@
                     <td>
                         <table class="simple-table" id="tbl-other-violence">
                             <tr>
-                                <td> Specify other violence</td>
+                                <td><b>Specify other violence</b></td>
                                 <td><obs conceptId="165138" style="textarea" rows="2"  cols="60" /></td>
                             </tr>
                         </table>
                     </td>
-
-                    <td>Type of Assault</td>
+                    <td><b>Type of Assault</b></td>
                     <td>
                         <obs conceptId="123160" answerLabel="Oral" answerConceptId="166060" style="checkbox"/> <br/>
                         <obs conceptId="123160" answerLabel="Vaginal" answerConceptId="123385" style="checkbox"/><br/>
@@ -378,14 +366,12 @@
                     <td>
                         <table class="simple-table" id="tbl-assault-type-other">
                             <tr>
-                                <td>Specify other Assault</td>
+                                <td><b>Specify other Assault</b></td>
                                 <td><obs conceptId="164879" style="textarea" rows="2" cols="60"/></td>
                             </tr>
                         </table>
                     </td>
-
-                    <td><b>Date of Incidence</b></td>
-                    <td><obs conceptId="165349" size="50" /></td>
+                    <td><b>Date of Incidence</b> &nbsp; <obs conceptId="165349" size="50" /></td>
                 </tr>
             </table>
         </fieldset>
@@ -396,10 +382,8 @@
             </legend>
             <table class="simple-table" id="adherence-1">
                 <tr>
-                    <td><b>Identity of perpetrator (if known)</b></td>
-                    <td><obs conceptId="165230" rows="2" cols="50" /></td>
-                    <td><b>Relation of survivor to perpetrator</b></td>
-                    <td>
+                    <td><b>Identity of perpetrator (if known)</b></td><td><obs conceptId="165230" rows="2" cols="50" /></td>
+                    <td><b>Relation of survivor to perpetrator</b></td><td>
                         <obs conceptId="1530"
                                   answerLabels="Grandchild,Partner or Spouse,Grandparent,Parent,Child,Other family members,Sibling,Unknown,None"
                                   answerConceptIds="1529,5617,973,1527,1528,5620,972,1067,1107"
@@ -408,37 +392,35 @@
                     </td>
                     </tr>
                 <tr>
-                    <td><b>Compulsory HIV test on perpetrator</b></td>
-                    <td><obs id="hiv-test"  conceptId="164848" answerLabels="Done,Not Done" answerConceptIds="1065,1066" style="radio" /></td>
-                    <td>Result for the compulsory HIV test</td>
-                    <td><obs  conceptId="159427" answerLabels="Negative,Positive" answerConceptIds="664,703" style="radio" /></td>
-                    <td>Perpetrator's file number</td>
-                    <td><obs conceptId="1639" size="50" /></td>
+                    <td><b>Compulsory HIV test on perpetrator</b></td><td><obs id="hiv-test"  conceptId="164848" answerLabels="Done,Not Done" answerConceptIds="1065,1066" style="radio" /></td>
+                    <td><b>Result for the compulsory HIV test</b></td><td><obs  conceptId="159427" answerLabels="Negative,Positive" answerConceptIds="664,703" style="radio" /></td>
+                    <td><b>Perpetrator's file number</b></td><td><obs conceptId="1639" size="50" /></td>
                 </tr>
             </table>
         </fieldset>
         <!--Physical Examination-->
         <fieldset id="Assesment-tab5">
             <legend>
-                <strong>Physical Examination:</strong>
+                <strong>Physical Examination</strong>
             </legend>
             <table class="simple-table" id="adherence-5">
                 <p align="left"><strong>Specimen (presence for medico-legal purposes)</strong></p>
                 <tr>
-                    <td><b>State of the Patient</b></td>
-                    <td><obs conceptId="163042" rows="3" cols="60" required="true" /></td>
-                    <td><b>State of Clothing</b></td>
-                    <td><obs conceptId="163045" rows="3" cols="60" required="true" /></td>
-                    <td><b>Examination of the Genitalia</b></td>
-                    <td><obs conceptId="160971" rows="3" cols="60" required="true" /></td>
-                    <td><b>Other injuries of the patient</b></td>
-                    <td><obs conceptId="165092" rows="3" cols="60" required="true" /></td>
+                    <td><b>State of the Patient</b></td><td><obs conceptId="163042" rows="2" cols="30" required="true" /></td>
+                    <td><b>State of Clothing</b></td><td><obs conceptId="163045" rows="2" cols="30" required="true" /></td>
+                    <td><b>Examination of the Genitalia</b></td><td><obs conceptId="160971" rows="2" cols="30" required="true" /></td>
+                    <td><b>Other injuries of the patient</b></td><td><obs conceptId="165092" rows="2" cols="30" /></td>
                 </tr>
             </table>
+        </fieldset>
+        <fieldset id="Assesment-tab6">
+            <legend>
+                <strong>Specimen (Preserve for medico-legal purpose)</strong>
+            </legend>
             <table class="simple-table">
                         <tr>
-                            <td>1. High Vaginal/Anal Swab (Microscopy and Gram Staining)</td>
-                            <td><obs  conceptId="166141" answerLabels="Non-Reactive,Reactive" answerConceptIds="664,703" style="radio" /></td>
+                            <td><b>1.High Vaginal/Anal Swab (Microscopy and Gram Staining)</b></td>
+                            <td><obs  conceptId="166364" rows="2" cols="30" required="false" /></td>
                             <td><p><b>Blood</b></p>
                                 <table class="simple-table">
                                     <tr>
@@ -457,13 +439,15 @@
                                     </tr>
                                 </table>
                             </td>
-                            <td>3.PDT</td>
-                            <td><obs  conceptId="167229" answerLabels="Negative,Positive" answerConceptIds="703,664" style="radio" /></td>
+                            <includeIf velocityTest="$patient.gender == 'F' ">
+                                <td>3.PDT</td>
+                                <td><obs  conceptId="167229" answerLabels="Negative,Positive" answerConceptIds="703,664" style="radio" /></td>
+                            </includeIf>
                         </tr>
               </table>
         </fieldset>
         <!--P-->
-        <fieldset id="Assesment-tab6">
+        <fieldset id="Assesment-tab7">
             <legend>
                 <strong>Contraception and Prophylaxis</strong>
             </legend>
@@ -531,7 +515,7 @@
             </table>
         </fieldset>
         <!-- Baseline -->
-        <fieldset id="Assesment-tab7">
+        <fieldset id="Assesment-tab8">
             <legend>
                 <strong>Baseline Tests and Appointment Details</strong>
             </legend>
@@ -539,22 +523,20 @@
                 <tr>
                     <td><b>1. HBsAG</b></td>
                     <td><obs  conceptId="161472" answerLabels="Non Reactive,Reactive" answerConceptIds="664,703" style="radio" /></td>
-                </tr>
-                <tr>
+            
                     <td><b>2. LFTs: ALT</b></td>
                     <td><obs conceptId="654" size="30" /></td>
                 </tr>
                 <tr>
                     <td><b>3. RFTs: Creatinine</b></td>
                     <td><obs conceptId="790" size="30" /></td>
-                </tr>
-                <tr>
+               
                     <td><b>4. Other test (Specify)</b></td>
-                    <td><obs conceptId="160987" style="textarea" rows="2" cols="60" /></td>
+                    <td><obs conceptId="160987" style="textarea" rows="2" cols="30" /></td>
                 </tr>
                 <tr>
                     <td><b>TCA Date</b></td>
-                    <td><obs conceptId="160753" required="" size="50" allowFutureDates="true" /></td>
+                    <td><obs conceptId="5096" required="" size="50" allowFutureDates="true" /></td>
                 </tr>
 
             </table>

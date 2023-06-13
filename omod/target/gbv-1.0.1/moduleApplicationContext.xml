@@ -16,18 +16,30 @@
 
 
 	<!-- ===================== Program ===================== -->
-
 	<bean
 		id="kenyaemr.gbv.treatment.program"
 		class="org.openmrs.module.kenyacore.program.ProgramDescriptor">
 		<property name="targetUuid" value="e41c3d74-37c7-4001-9f19-ef9e35224b70" />
 		<property name="eligibilityCalculation"
 			value="org.openmrs.module.gbv.calculation.EligibleForExampleProgramCalculation" />
-		<property name="defaultEnrollmentForm" ref="gbv.form.gbvconsentform" />
-		<property name="defaultCompletionForm" ref="gbv.form.gbvlinkageform" />
+		<property name="defaultEnrollmentForm" ref="gbv.form.gbvenrollmentform" />
+		<property name="defaultCompletionForm" ref="gbv.form.gbvcompletionform" />
 		<property name="visitForms">
 			<set>
+				<ref bean="gbv.form.gbvtriageform" />
+				<ref bean="gbv.form.gbvtraumacounsellingform" />
+				<ref bean="gbv.form.pepformfornonoccupationalexposure" />
+				<ref bean="gbv.form.gbvoccupationalpepexposureform" />
+				<ref bean="gbv.form.pepformformanagementofsurvivors" />
+				<ref bean="gbv.form.gbvphysicalemotionalform" />
+				<ref bean="gbv.form.gbvperpetratordetailform" />
+				<ref bean="gbv.form.gbvconsentform" />
+				<ref bean="gbv.form.gbvpostrapecareform" />
 				<ref bean="gbv.form.gbvpepfollowupform" />
+				<ref bean="gbv.form.gbvpsychologicalassessmentform" />
+				<ref bean="gbv.form.gbvlinkageform" />
+				<ref bean="gbv.form.gbvlegalform" />
+				<ref bean="gbv.form.gbvadditionalnoteform" />
 			</set>
 		</property>
 		<property name="reports">
@@ -419,9 +431,42 @@
 		<property name="htmlform" value="gbv:pepforoccupationalexposurepatientform.html" />
 	</bean>
 
+	<!-- Gbv Enrollment -->
+	<bean id="gbv.form.gbvenrollmentform" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="9ba1d4aa-57d7-48f9-a635-a23508e8136c" />
+		<property name="apps">
+			<set>
+				<ref bean="kenyaemr.app.registration" />
+				<ref bean="kenyaemr.app.intake" />
+				<ref bean="kenyaemr.app.prep" />
+				<ref bean="kenyaemr.app.clinician" />
+				<ref bean="kenyaemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="gbv:forms/example.png" />
+		<property name="htmlform" value="gbv:gbvenrollmentform.html" />
+	</bean>
+
+	<!-- Gbv Completion-->
+	<bean id="gbv.form.gbvcompletionform" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="8fed3d06-f8a1-4cb8-b853-cd93394bab79" />
+		<property name="apps">
+			<set>
+				<ref bean="kenyaemr.app.registration" />
+				<ref bean="kenyaemr.app.intake" />
+				<ref bean="kenyaemr.app.prep" />
+				<ref bean="kenyaemr.app.clinician" />
+				<ref bean="kenyaemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="gbv:forms/example.png" />
+		<property name="htmlform" value="gbv:gbvcompletionform.html" />
+	</bean>
+
 	<bean id="gbv.config.form"
 		class="org.openmrs.module.kenyacore.form.FormConfiguration">
-		<!-- Example of adding a form to the general visit form list -->
+		<!--Example
+		of adding a form to the general visit form list -->
 		<property name="commonVisitForms">
 			<set>
 				<ref bean="gbv.form.gbvconsentform" />

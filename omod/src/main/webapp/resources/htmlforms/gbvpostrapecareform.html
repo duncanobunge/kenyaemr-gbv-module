@@ -326,10 +326,10 @@
             <table class="simple-table" id="Checklist-tbl1">
                 <tr>
                    <td>Date &amp; Time of Examination</td>
-                    <td>   <obs conceptId="159948" size="50"  showTime="true"/>
+                    <td>   <obs conceptId="159948" size="50"  required="true" showTime="true"/>
                    </td>
                     <td>Date &amp; Time of Incident</td>
-                    <td>    <obs conceptId="162869" size="50"  showTime="true"/>
+                    <td>    <obs conceptId="162869" size="50" required="true"  showTime="true"/>
                     </td>
                 </tr>
                 <tr>
@@ -337,16 +337,12 @@
                       <td>  <obs conceptId="1639" rows="3" cols="40"  style="text"/>
                     </td>
                     <td>Alleged perpetrators</td>
-                    <td><obs id="alleged-perpetrator" conceptId="165229" answerLabels="Unknown,Known" answerConceptIds="1066,1065" style="radio" /></td>
+                    <td><obs id="alleged-perpetrator" required="true" conceptId="165229" answerLabels="Unknown,Known (specify)" answerConceptIds="1066,1065" style="radio" /></td>
                     <td>
                         <table id="tbl-specify-relationship">
                             <tr>
                                 <td>Specify the relationship</td>
-                                <td><obs conceptId="164352"
-                                         answerLabels="Grandchild,partner or spouse,Grandparent,Parent,Child,Other family member,Sibling,None"
-                                         answerConceptIds="1529,5617,973,1527,1528,5620,972,1107"
-                                         id="specify-relationship"
-                                         style="radio"/><br/>
+                                <td><obs conceptId="167214" required="false" style="text"/><br/>
                                 </td>
                             </tr>
                         </table>
@@ -397,8 +393,12 @@
                         </table>
                     </td>
                     <td>Use of condoms</td>
-                    <td><obs required="true" conceptId="1357" answerLabels="Yes,No,Unknown" answerConceptIds="1065,1066,1067" style="radio"/>
-                    <br/></td>
+                    <td>
+                        <obs conceptId="1357" answerLabel="Yes" answerConceptId="1065" style="checkbox"/><br/>
+                        <obs  conceptId="1357" answerLabel="No" answerConceptId="1066" style="checkbox"/><br/>
+                        <obs  conceptId="1357" answerLabel="Unknown" answerConceptId="1067" style="checkbox"/>
+
+                    </td>
                 </tr>
                 <tr>
                     <td>Attended a health facility before this one?</td>
@@ -459,10 +459,17 @@
             </legend>
             <table class="simple-table" id="adherence-5">
                 <tr>
-                    <td>Parity</td>
-                    <td> <obs conceptId="1053" size="30"/></td>
-                    <td>Contraception type</td>
-                    <td><obs  conceptId="163400" answerLabels="Yes,No" answerConceptIds="1065,1066" style="radio" /></td>
+                    <!--<td>Parity</td>
+                    <td> <obs conceptId="1053" size="30"/></td>-->
+                        <td>Parity:</td>
+                        <td>
+                            <obs conceptId="160080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="parity-term"/>
+                            +
+                            <obs conceptId="1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                 id="parity-abortion"/>
+                        </td>
+                        <td>Using any type of contraception</td>
+                        <td><obs  conceptId="163400" answerLabels="Yes,No" answerConceptIds="1065,1066" style="radio" /></td>
                  </tr>
                 <tr>
                     <td>LMP</td>

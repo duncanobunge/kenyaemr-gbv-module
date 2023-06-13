@@ -37,6 +37,9 @@ public class ExampleMetadata extends AbstractMetadataBundle {
 
 	public static class _EncounterType {
 
+		public static final String GBV_ENROLLMENT="b3f8c498-7f17-44c7-993e-6cd981a5f420";
+		public static final String GBV_DISCONTINUATION="ab3031fe-d67c-4ae4-9317-f6f5b920b776";
+
 		//GBVPHYSICALEMOTIONALFORM Encounter
 		public static final String GBVPHYSICALEMOTIONALFORM="39d9350b-6eba-4653-a0cf-c554f44f6e91";
 		//GBVLEGALFORM
@@ -69,6 +72,8 @@ public class ExampleMetadata extends AbstractMetadataBundle {
 	}
 
 	public static class _Form {
+		public static final String GBV_ENROLLMENT="9ba1d4aa-57d7-48f9-a635-a23508e8136c";
+		public static final String GBV_DISCONTINUATION="8fed3d06-f8a1-4cb8-b853-cd93394bab79";
 		//GBVPEPFORMMANAGEMENTOFSURVIVORSFOLLOWUP
 		public static final String GBVPEPFOLLOWUPFORM="155ccbe2-a33f-4a58-8ce6-57a7372071ee";
 		//GBVPHYSICALEMOTIONALFORM
@@ -105,6 +110,16 @@ public class ExampleMetadata extends AbstractMetadataBundle {
 	 */
 	@Override
 	public void install() {
+		//GBVENROLLMENT
+		install(encounterType("GBV_ENROLLMENT Encounter", "GBV_ENROLLMENT Encounter", _EncounterType.GBV_ENROLLMENT));
+		install(form("GBV_ENROLLMENT FORM", null, _EncounterType.GBV_ENROLLMENT, "1", _Form.GBV_ENROLLMENT));
+
+		//GBVENROLLMENT
+		install(encounterType("GBV_DISCONTINUATION Encounter", "GBV_DISCONTINUATION Encounter", _EncounterType.GBV_DISCONTINUATION));
+		install(form("GBV_DISCONTINUATION FORM", null, _EncounterType.GBV_DISCONTINUATION, "1", _Form.GBV_DISCONTINUATION));
+
+
+
 		 //GBVADDITIONALNOTESFORM
 		install(encounterType("GBVPEPFOROCCUPATIONALEXPOSURE Encounter", "GBVPEPFOROCCUPATIONALEXPOSURE Encounter", _EncounterType.GBVPEPFOROCCUPATIONALEXPOSURE));
 		install(form("PEP MANAGEMENT FORM FOR OCCUPATIONAL EXPOSURE", null, _EncounterType.GBVPEPFOROCCUPATIONALEXPOSURE, "1", _Form.GBVPEPFOROCCUPATIONALEXPOSURE));

@@ -1,0 +1,172 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+	<style>
+		.simple-table {
+			border: solid 1px #DDEEEE;
+			border-collapse: collapse;
+			border-spacing: 0;
+			font: normal 13px Arial, sans-serif;
+		}
+		.simple-table thead th {
+			background-color: #DDEFEF;
+			border: solid 1px #DDEEEE;
+			color: #336B6B;
+			padding: 10px;
+			text-align: left;
+			text-shadow: 1px 1px 1px #fff;
+		}
+		.simple-table td {
+			border: solid 1px #DDEEEE;
+			color: #333;
+			padding: 10px;
+			text-shadow: 1px 1px 1px #fff;
+		}
+
+	</style>
+
+	<script type="text/javascript">
+		var prepVelocity = "<lookup expression="prep.PrepVelocityCalculation()" />";
+		var enrollmentDate = prepVelocity.split(",")[0].split(":")[1];
+
+		jq(document).ready(function(){
+			jq('#discontinue-message-link-to-care').hide();
+			jq('#discontinue-message').hide();
+			jq('#other-reason').hide();
+			jq('#discontinue').click(showOptionsOther);
+
+			if ((getValue('idReason.value')) == 160034) {
+				jq('#pdied :input').prop('disabled', false);
+				jq('#ptransferred :input').prop('disabled', true);
+			}
+			else if((getValue('idReason.value')) == 159492) {
+				jq('#pdied :input').prop('disabled', true);
+				jq('#ptransferred :input').prop('disabled', false);
+			}
+			else {
+				jq('#pdied :input').prop('disabled', true);
+				jq('#ptransferred :input').prop('disabled', true);
+			}
+
+			jq("#idReason select").change(function() {
+				if ((getValue('idReason.value')) == 160034) {
+					jq('#pdied :input').prop('disabled', false);
+					jq('#ptransferred :input').prop('disabled', true);
+				}
+				else if((getValue('idReason.value')) == 159492) {
+					jq('#pdied :input').prop('disabled', true);
+					jq('#ptransferred :input').prop('disabled', false);
+				}
+				else {
+					jq('#pdied :input').prop('disabled', true);
+					jq('#ptransferred :input').prop('disabled', true);
+				}
+			});
+
+			var pbirthdate = new Date("<lookup expression="patient.birthdate" />").getTime();
+			var discontinueDate;
+
+			beforeSubmit.push(function() {
+				discontinueDate = new Date(getValue('encounter-date.value')).getTime();
+
+				if(discontinueDate &lt; pbirthdate){
+					getField('encounter-date.error').html('Discontinue date, should not be earlier than Birth date').show();
+					return false;
+				}
+
+				if(discontinueDate &lt; enrollmentDate){
+					getField('encounter-date.error').html('Discontinue date, should not be earlier than Enrollment date').show();
+					return false;
+				}else {
+					getField('encounter-date.error').html('Discontinue date, should not be earlier than Enrollment').hide();
+
+				}
+				return true;
+			});
+		});
+
+		function showOptionsOther() {
+			var discontinueReason = jq('#discontinue option:selected').val();
+			if(discontinueReason ==5622) {
+				jq('#other-reason').show();
+			}else {
+				jq('#other-reason').hide();
+			}
+
+			if(discontinueReason ==113338) {
+				jq('#discontinue-message').hide();
+
+			}else {
+				jq('#discontinue-message').show();
+			}
+			if(discontinueReason ==138571) {
+				jq('#discontinue-message-link-to-care').show();
+
+			}else {
+				jq('#discontinue-message-link-to-care').hide();
+			}
+
+			if(discontinueReason ==1302 || discontinueReason ==159598 || discontinueReason ==164401 || discontinueReason ==162696
+					|| discontinueReason ==150506 || discontinueReason ==978 || discontinueReason ==160581 || discontinueReason ==5622) {
+				jq('#discontinue-message').show();
+			}else {
+				jq('#discontinue-message').hide();
+			}
+
+
+
+		}
+	</script>
+	<div class="ke-form-header">
+		<table width="100%">
+			<tr>
+				<td>Date: <encounterDate id="encounter-date" showTime="true" /></td>
+				<td>Location: <encounterLocation default="GlobalProperty:kenyaemr.defaultLocation" type="autocomplete" /></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="ke-form-content">
+		<fieldset>
+			<legend>Discontinue from GBV Recovery Clinic</legend>
+			<table class="simple-table">
+				<tr id="discontinue-status">
+					<td>Discontinue reasons (Pep Management particularly and Legal cases)</td>
+					<td><obs id="discontinue" conceptId="161555" labelText=" "   answerConceptIds="138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+						113338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+						159598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+						162696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,150506AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+						978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,121760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622"
+							 answerLabels="HIV test is positive,Renal dysfunction,
+							 Not adherent to PEP,Too many HIV tests,Client request,Intimate partner violence,
+							 Self Discontinuation,Low risk of HIV,Adverse drug reaction,Other-specify"  style="dropdown"/>
+						<obs id="other-reason" conceptId="160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+					</td>
+
+				</tr>
+				<tr>
+					<td id="date-last-dose-label">Date of Last Pep dose:</td>
+					<td id="date-last-dose"><obs conceptId="162549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowFutureDates="true" /></td>
+				</tr>
+			</table>
+		</fieldset>
+
+		<completeProgram programId="e41c3d74-37c7-4001-9f19-ef9e35224b70" />
+	</div>
+
+	<div class="ke-form-footer">
+		<submit />
+	</div>
+
+</htmlform>
