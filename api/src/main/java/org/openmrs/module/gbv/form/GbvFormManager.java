@@ -27,7 +27,7 @@ import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationService;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.ResultUtil;
-import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.gbv.domain.AppDescriptor;
 import org.openmrs.module.htmlformentry.HtmlFormEntryUtil;
 import org.openmrs.module.htmlformentry.handler.TagHandler;
 import org.openmrs.module.gbv.ContentManager;

@@ -17,7 +17,8 @@
        $(document).ready(function () {
             //Defaults
             jq("#tbl-other-referral-source").hide();
-
+            jq("#tbl-hts-entry-point").hide();
+            jq("#hts-entry-point").hide();
             //Referred by selected
             jq("#referred-from :input[type=radio]").change(otherReferralSelected);
           });
@@ -26,9 +27,20 @@
             var val = jq(this).val();
             if (val == 5622 ){
                 jq("#tbl-other-referral-source").show();
-            }else {
+            }
+            else if(val == 1275){
+              jq("#tbl-hts-entry-point").show();
+              jq("#hts-entry-point").show();
+            }
+            else {
                 jq("#tbl-other-referral-source").hide();
                 clearHiddenSections(jq("#tbl-other-referral-source"));
+
+                jq("#tbl-hts-entry-point").hide();
+                clearHiddenSections(jq("#tbl-hts-entry-point"));
+
+                jq("#hts-entry-point").hide();
+                clearHiddenSections(jq("#hts-entry-point"));
             }
         };
 
@@ -99,7 +111,7 @@
   <div class="ke-form-header">
     <table width="100%">
       <tr>
-        <td>Date of Incident <encounterDate id="encounter-date" showTime="true" /></td>
+        <td>Encounter Date <encounterDate id="encounter-date" showTime="true" /></td>
         <td>Encounter provider  <encounterProvider default="currentUser" role="Provider"/></td>
         <td>Location <encounterLocation default="GlobalProperty:kenyaemr.defaultLocation" type="autocomplete" /></td>
       </tr>
@@ -110,12 +122,12 @@
     <!--Referral Details-->
     <fieldset id="Assesment-tab3">
       <legend>
-        <strong>Referral Details</strong>
+        <strong>Visit Details</strong>
       </legend>
       <table class="simple-table" id="adherence-3">
         <tr>
-          <td>GBV Number <i><strong>(format: GBV#-10-2022-00001)</strong></i></td>
-          <td><obs required="true" conceptId="1646" size="30" /></td>
+            <td><strong>GBV Number (format for the number GBV-MFLCODE-YY-XXXXX)</strong></td>
+            <td><obs conceptId="1646" /></td>
             <td><strong>Referred From</strong><br></br>
             <obs id="referred-from"  conceptId="1272" answerLabels="Police,
                                                 Health Facility,
@@ -126,6 +138,51 @@
                                    style="radio"
                                    required="true" />
           </td>
+          <td>
+            <table id="tbl-hts-entry-point">
+              <tr>
+                  <td>Indicate Department: 
+                      <obs id="hts-entry-point" 
+                           conceptId="160540"
+                           answerConceptIds="5485,
+                                             160542,
+                                             162181,
+                                             160552,
+                                             160538,
+                                             160456,
+                                             1623,
+                                             160541,
+                                             159940,
+                                             162223,
+                                             160546,
+                                             160522,
+                                             163096,
+                                             159938,
+                                             159939,
+                                             5622"
+                           answerLabels="In Patient Department(IPD),
+                                         Out Patient Department(OPD),
+                                         Peadiatric Clinic,
+                                         Nutrition Clinic,
+                                         PMTCT - ANC,
+                                         PMTCT - MAT,
+                                         PMTCT - PNC,
+                                         TB,
+                                         VCT,
+                                         VMMC,
+                                         STI Clinic,
+                                         Emergency,
+                                         Community Testing,
+                                         Home Based Testing,
+                                         Mobile Outreach,
+                                         Other"
+                           required="false"
+                      />
+                  </td>
+              </tr>
+           </table>
+          </td>
+
            <td>
                <table id="tbl-other-referral-source">
                    <tr>
@@ -138,7 +195,11 @@
             <td>
                 <obs  conceptId="165205" answerLabel="Physical Violence" answerConceptId="158358"  style="checkbox"/><br/>
                 <obs  conceptId="165205" answerLabel="Emotional Violence" answerConceptId="117510"  style="checkbox"/><br/>
+                <obs  conceptId="165205" answerLabel="Intimate Partner Violence (IPV)" answerConceptId="167243"  style="checkbox"/><br/>
+
             </td>
+            <td>Date &amp; Time of Incident</td>
+            <td><obs conceptId="162869" size="50"  showTime="true"/></td>
         </tr>
       </table>
     </fieldset>
@@ -148,7 +209,7 @@
         <strong>GBV Clinical Care</strong>
       </legend>
       <table class="simple-table" id="adherence-5">
-        <tr>
+          <tr>
               <td>Trauma Counselling</td>
               <td>
                 <obs required="true" conceptId="165184" answerLabels="Yes,No" answerConceptIds="1065,1066" style="radio" /> <br></br>
@@ -158,7 +219,7 @@
                 <obs conceptId="161011" style="textarea" rows="3" cols="40" />
               </td>
           </tr>
-          <tr>
+          <!--<tr>
               <td>STI Screening/Treatment</td>
               <td>
                 <obs required="true" conceptId="165172" answerLabels="Yes,No" answerConceptIds="1065,1066" style="radio" /> <br></br>
@@ -207,18 +268,32 @@
                     Child Protection services comments<br></br>
                     <obs conceptId="167214" style="textarea" rows="3" cols="40" />
                 </td>
-        </tr>
+        </tr>-->
         <tr>
               <td colspan="2">Referrals to (Tick all that apply)</td>
               <td>
-                <obs  conceptId="1885" answerLabel="Police station" answerConceptId="165192" style="checkbox" />&nbsp;<br/>
-                <obs  conceptId="1885" answerLabel="Safe space" answerConceptId="165227" style="checkbox" /> <br/>
-                <obs  conceptId="1885" answerLabel="Alternative dispute resolution" answerConceptId="165227" style="checkbox" /><br/><br/>
+                <obs  conceptId="1272" answerLabel="Police station" answerConceptId="165192" style="checkbox" /><br/>
+                <obs  conceptId="1272" answerLabel="Legal Support" answerConceptId="135914" style="checkbox" /><br/>
+                <obs  conceptId="1272" answerLabel="HIV Testing/Re-testing services" answerConceptId="1459" style="checkbox" /><br/>
+                <obs  conceptId="1272" answerLabel="STI Screening/treatment" answerConceptId="160546" style="checkbox" /><br/>
+                <obs  conceptId="1272" answerLabel="Post-exposure Prophylaxis" answerConceptId="1691" style="checkbox" /><br/>
+                <obs  conceptId="1272" answerLabel="Radiology services (X-ray)" answerConceptId="1606" style="checkbox" /><br/>
+                <obs  conceptId="1272" answerLabel="Safe space" answerConceptId="165227" style="checkbox" /><br/>
+                <obs  conceptId="1272" answerLabel="Care and Treatment" answerConceptId="1610" style="checkbox" /><br/>
+                <obs  conceptId="1272" answerLabel="Psychosocial Support" answerConceptId="5490" style="checkbox" /><br/>
+                <obs  conceptId="1272" answerLabel="Alternative dispute resolution" answerConceptId="5486" style="checkbox" /><br/>
+                <obs  conceptId="1272" answerLabel="Other (Specify)" answerConceptId="5622" style="checkbox" />
               </td>
               <td>
-                Scheduled Appointments (Date)</td>
-               <td> <obs conceptId="162549" required="" allowFutureDates="true" size="50" />
+                <table id="tbl-referral_services">
+                    <tr>
+                        <td><strong>Specify other referrals</strong></td>
+                        <td><obs conceptId="160632" style="textarea" rows="3" cols="40" /></td>
+                    </tr>
+                </table>
               </td>
+              <td>Scheduled Appointments (Date)</td>
+              <td> <obs conceptId="162549" required="" allowFutureDates="true" size="50" /></td>
         </tr>
       </table>
     </fieldset>

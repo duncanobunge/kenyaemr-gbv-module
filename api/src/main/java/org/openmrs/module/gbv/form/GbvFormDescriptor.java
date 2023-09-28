@@ -16,7 +16,7 @@ package org.openmrs.module.gbv.form;
 
 import org.openmrs.Form;
 import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.gbv.domain.AppDescriptor;
 import org.openmrs.module.gbv.AbstractEntityDescriptor;
 import org.openmrs.module.gbv.app.AppRestrictedDescriptor;
 import org.openmrs.module.gbv.UiResource;

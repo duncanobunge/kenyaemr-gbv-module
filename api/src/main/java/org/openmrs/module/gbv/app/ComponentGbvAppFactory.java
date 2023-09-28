@@ -15,10 +15,10 @@
 package org.openmrs.module.gbv.app;
 
 import org.openmrs.api.context.Context;
-import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.appframework.domain.AppTemplate;
-import org.openmrs.module.appframework.domain.Extension;
-import org.openmrs.module.appframework.factory.AppFrameworkFactory;
+import org.openmrs.module.gbv.domain.AppDescriptor;
+import org.openmrs.module.gbv.domain.GbvAppTemplate;
+import org.openmrs.module.gbv.domain.GbvExtension;
+import org.openmrs.module.gbv.factory.GbvAppFrameworkFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ import java.util.List;
  * context
  */
 @Component
-public class ComponentGbvAppFactory implements AppFrameworkFactory {
+public class ComponentGbvAppFactory implements GbvAppFrameworkFactory {
 
 	/**
 	 * @see org.openmrs.module.appframework.factory.AppFrameworkFactory#getAppDescriptors()
@@ -43,7 +43,7 @@ public class ComponentGbvAppFactory implements AppFrameworkFactory {
 	 * @see org.openmrs.module.appframework.factory.AppFrameworkFactory#getExtensions()
 	 */
 	@Override
-	public List<Extension> getExtensions() throws IOException {
+	public List<GbvExtension> getExtensions() throws IOException {
 		return null;
 	}
 
@@ -51,7 +51,7 @@ public class ComponentGbvAppFactory implements AppFrameworkFactory {
 	 * @see org.openmrs.module.appframework.factory.AppFrameworkFactory#getAppTemplates()
 	 */
 	@Override
-	public List<AppTemplate> getAppTemplates() throws IOException {
+	public List<GbvAppTemplate> getAppTemplates() throws IOException {
 		return null;
 	}
 }

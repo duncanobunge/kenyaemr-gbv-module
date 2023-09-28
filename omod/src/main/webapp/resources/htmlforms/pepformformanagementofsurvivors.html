@@ -26,6 +26,7 @@
             jq("#row-ccc-positive-result").hide();
             jq("#tbl-assault-type-other").hide();
             jq("#tbl-other-violence").hide();
+            jq("#test-result").hide();
 
 
             //Referred by selected
@@ -36,6 +37,7 @@
             jq("#other-violence :input[type=radio]").change(otherViolenceSelected);
             jq("#hiv-test-result :input[type=radio]").change(hivTestResultSelected);
             jq("#other-assault :input[type=checkbox]").change(otherAssaultSelected);
+            jq("#hiv-test :input[type=radio]").change(compulsoryTestDoneSelected);
           });
 
 
@@ -46,6 +48,15 @@
             }else {
                 jq("#tbl-other-violence").hide();
                 clearHiddenSections(jq("#tbl-other-violence"));
+            }
+        };
+        var compulsoryTestDoneSelected = function () {
+            var val = jq(this).val();
+            if (val == 1065 ){
+                jq("#test-result").show();
+            }else {
+                jq("#test-result").hide();
+                clearHiddenSections(jq("#test-result"));
             }
         };
 
@@ -157,6 +168,7 @@
             jq("#row-ccc-positive-result").hide();
             jq("#tbl-assault-type-other").hide();
             jq("#tbl-other-violence").hide();
+            jq("#test-result").hide();
 
 
             //Referred by selected
@@ -167,6 +179,7 @@
             jq("#other-violence :input[type=radio]").change(otherViolenceSelected);
             jq("#hiv-test-result :input[type=radio]").change(hivTestResultSelected);
             jq("#other-assault :input[type=checkbox]").change(otherAssaultSelected);
+            jq("#hiv-test :input[type=radio]").change(compulsoryTestDoneSelected);
           });
 
 
@@ -180,6 +193,15 @@
             }
         };
 
+        var compulsoryTestDoneSelected = function () {
+            var val = jq(this).val();
+            if (val == 1065 ){
+                jq("#test-result").show();
+            }else {
+                jq("#test-result").hide();
+                clearHiddenSections(jq("#test-result"));
+            }
+        };
             var hivTestResultSelected = function () {
             var val = jq(this).val();
             if (val == 664 ){
@@ -393,7 +415,10 @@
                     </tr>
                 <tr>
                     <td><b>Compulsory HIV test on perpetrator</b></td><td><obs id="hiv-test"  conceptId="164848" answerLabels="Done,Not Done" answerConceptIds="1065,1066" style="radio" /></td>
-                    <td><b>Result for the compulsory HIV test</b></td><td><obs  conceptId="159427" answerLabels="Negative,Positive" answerConceptIds="664,703" style="radio" /></td>
+                   <div id="test-result">
+                    <td><b>Result for the compulsory HIV test</b></td>
+                    <td><obs  conceptId="159427" answerLabels="Negative,Positive" answerConceptIds="664,703" style="radio" /></td>
+                   </div> 
                     <td><b>Perpetrator's file number</b></td><td><obs conceptId="1639" size="50" /></td>
                 </tr>
             </table>

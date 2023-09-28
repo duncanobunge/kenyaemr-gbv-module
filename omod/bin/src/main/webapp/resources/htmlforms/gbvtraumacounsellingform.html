@@ -22,6 +22,7 @@
             jq("#row-hiv-test").hide();
             jq("#row-exposure-type").hide();
             jq("#tbl-prc-number").hide();
+            jq("#row-tca").hide();
 
 
             //Referred by selected
@@ -37,16 +38,23 @@
             if (val == 162080 ){
                 jq("#row-hiv-test").show();
                 jq("#row-exposure-type").show();
-                jq("#tbl-prc-number").show();
-            }else {
+                jq("#row-tca").show();
+            }else if(val == 1722 ){
+                jq("#row-tca").show();
+            }else if(val == 165307 ){
+                jq("#row-tca").show();
+            }else if(val == 1721 ){
+                jq("#row-tca").show();
+            }
+            else {
                 jq("#row-hiv-test").hide();
                 clearHiddenSections(jq("#row-hiv-test"));
 
                 jq("#row-exposure-type").hide();
                 clearHiddenSections(jq("#row-exposure-type"));
 
-                jq("#tbl-prc-number").hide();
-                clearHiddenSections(jq("#tbl-prc-number"));
+                jq("#row-tca").hide();
+                clearHiddenSections(jq("#row-tca"));
             }
         };
          var unknownHIVTestSelected = function () {
@@ -104,6 +112,7 @@
             jq("#row-hiv-test").hide();
             jq("#row-exposure-type").hide();
             jq("#tbl-prc-number").hide();
+            jq("#row-tca").hide();
 
 
             //Referred by selected
@@ -119,7 +128,13 @@
             if (val == 162080 ){
                 jq("#row-hiv-test").show();
                 jq("#row-exposure-type").show();
-                jq("#tbl-prc-number").show();
+                jq("#row-tca").show();
+            }else if(val == 1722 ){
+                jq("#row-tca").show();
+            }else if(val == 165307 ){
+                jq("#row-tca").show();
+            }else if(val == 1721 ){
+                jq("#row-tca").show();
             }else {
                 jq("#row-hiv-test").hide();
                 clearHiddenSections(jq("#row-hiv-test"));
@@ -127,8 +142,8 @@
                 jq("#row-exposure-type").hide();
                 clearHiddenSections(jq("#row-exposure-type"));
 
-                jq("#tbl-prc-number").hide();
-                clearHiddenSections(jq("#tbl-prc-number"));
+                jq("#row-tca").hide();
+                clearHiddenSections(jq("#row-tca"));
             }
         };
 
@@ -213,51 +228,85 @@
                                       id="visit-number"
                                       required="true"/>
                     </td>
-                    <td>
+                   <!--<td>
                         <table id="tbl-prc-number">
                             <tr>
                                 <td>PRC Number <strong>(format:PRC#-10-2022-00001 )</strong></td>
                                 <td><obs  id="prc-number" conceptId="1646" size="30"/></td>
                             </tr>
                         </table>
-                    </td>
+                    </td>-->
 
                 </tr>
                 <tr id="row-exposure-type">
-                    <td>Type of Exposure</td>
+                    <td>Form of Sexual Gender Based Violence:</td>
                     <td>
-                        <obs  conceptId="167165" answerConceptId="158358" answerLabels="Physical Violence" style="checkbox"/><br/>
-                        <obs  conceptId="167165" answerConceptId="118688" answerLabels="Emotional Violence" style="checkbox"/><br/>
-                        <obs  conceptId="167165" answerConceptId="167085" answerLabels="Sexual Assault (SGBV)" id="sex-assault-type" style="checkbox"/><br/>
-                        <obs  conceptId="167165" answerConceptId="164843" answerLabels="Occupational exposure" style="checkbox"/><br/>
-                        <obs  conceptId="167165" answerConceptId="164837" answerLabels="Non-occupational exposure" style="checkbox"/><br/>
-                        <obs  conceptId="167165" answerConceptId="5622" answerLabels="other (specify)" id="other-specify" style="checkbox"/><br/>
+                        <obs  conceptId="167165" answerConceptId="126582" answerLabels="Sexual Assault" style="checkbox"/><br/>
+                        <obs  conceptId="167165" answerConceptId="111505" answerLabels="Attempted Rape" style="checkbox"/><br/>
+                        <obs  conceptId="167165" answerConceptId="127910" answerLabels="Rape" style="checkbox"/><br/>
+                        <obs  conceptId="167165" answerConceptId="159889" answerLabels="Attempted Defilement" style="checkbox"/><br/>
+                        <obs  conceptId="167165" answerConceptId="145691" answerLabels="Defilement" style="checkbox"/><br/>
+                        <obs  conceptId="167165" answerConceptId="118935" answerLabels="FGM" style="checkbox"/><br/>
+                        <obs  conceptId="167165" answerConceptId="5622" answerLabels="Other (specify)" id="other-specify" style="checkbox"/><br/>
                     </td>
                     <td>
                         <table id="tbl-other-exposure-type">
                             <tr>
-                                <td>Specify type of exposure</td>
+                                <td>Specify type of SGBV</td>
                                 <td><obs conceptId="160716" style="textarea" id="specify-exposure" rows="3" cols="40"/></td>
                             </tr>
                         </table>
                     </td>
-                </tr>
-                <tr id="type-assault">
-                    <td>Type of Assault</td>
-                    <td>
-                        <obs conceptId="123160" answerLabel="Oral" answerConceptId="166060" style="checkbox"/> <br/>
-                        <obs conceptId="123160" answerLabel="Vaginal" answerConceptId="123385" style="checkbox"/><br/>
-                        <obs conceptId="123160" answerLabel="Anal" answerConceptId="148895" style="checkbox"/><br/>
-                        <obs conceptId="123160" answerLabel="Other (specify)" answerConceptId="5622" id="type-assault-select" style="checkbox"/>
-                    </td>
-                    <td>
-                        <table id="tbl-assault-other">
-                            <tr>
-                                <td>Specify other Assault</td>
-                                <td><obs conceptId="164879" style="textarea" id="specify-assault" rows="3" cols="40" /></td>
-                            </tr>
-                        </table>
-                    </td>
+                    <!-- 
+                            <td>Type of Assault</td>
+                            <td>
+                                <obs conceptId="123160" answerLabel="Oral" answerConceptId="166060" style="checkbox"/> <br/>
+                                <obs conceptId="123160" answerLabel="Vaginal" answerConceptId="123385" style="checkbox"/><br/>
+                                <obs conceptId="123160" answerLabel="Anal" answerConceptId="148895" style="checkbox"/><br/>
+                                <obs conceptId="123160" answerLabel="Other (specify)" answerConceptId="5622" id="type-assault-select" style="checkbox"/>
+                            </td>
+                            <td>
+                                <table id="tbl-assault-other">
+                                    <tr>
+                                        <td>Specify other Assault &nbsp;<obs conceptId="164879" style="textarea" id="specify-assault" rows="3" cols="40" /></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        -->
+                        <td> Please indicate if the survivor is disabled</td><td>
+                            <obs conceptId="162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="120291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                answerLabel="Hearing impairment" style="checkbox" /><br/>
+                            <obs conceptId="162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="147215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                answerLabel="Visual impairment" style="checkbox" /><br/>
+                            <obs conceptId="162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="151342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                answerLabel="Mentally Challenged" style="checkbox"  /><br/>
+                            <obs conceptId="162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="164538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                answerLabel="Physically Challenged" style="checkbox" /><br/>
+                            <obs conceptId="162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                answerLabel="Other" style="checkbox" id="has-other-disability"  /><br/>
+                            <obs conceptId="162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066"
+                                answerLabel="Not Disable" style="checkbox" id=""  /><br/>
+                        </td>
+                        <td>
+                             <table id="tbl-other-disability">
+                                <tr>
+                                    <td>  &#160;&#160;&#160; Specify :
+                                        <obs id="other-disability" conceptId="162725" />
+                                        &#160;&#160;&#160;
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        
+                        <includeIf velocityTest="$patient.age &lt; 19">
+                            <td>Is the survivor an Orphan Vulnerable Child (OVC)? &nbsp; <obs conceptId="1784"
+                                answerLabels="Yes,No,Unknown"
+                                answerConceptIds="1065,1066,1067"
+                                style="radio"
+                                id=""
+                                required="false"/>
+                            </td>
+                        </includeIf>
                 </tr>
             </table>
         </fieldset>
@@ -287,8 +336,10 @@
                 <tr>
                     <td><strong>Plan of Action</strong></td>
                     <td><obs conceptId="163104" rows="4" cols="40" style="textarea" id="action-plan"/></td>
+                </tr>
+                <tr id="row-tca">
                     <td>TCA</td>
-                    <td><obs conceptId="162549" required="true" allowFutureDates="true" size="50" /></td>
+                    <td><obs conceptId="5096" allowFutureDates="true" size="50" /></td>
                 </tr>
             </table>
         </fieldset>

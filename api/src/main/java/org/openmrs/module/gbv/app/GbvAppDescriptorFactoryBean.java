@@ -14,7 +14,7 @@
 
 package org.openmrs.module.gbv.app;
 
-import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.gbv.domain.AppDescriptor;
 import org.springframework.stereotype.Component;
 
 /**

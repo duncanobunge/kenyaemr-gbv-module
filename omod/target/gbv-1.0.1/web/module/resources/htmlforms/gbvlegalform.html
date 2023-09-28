@@ -109,35 +109,24 @@
   </div>
 
   <div class="ke-form-content">
-    <fieldset class="adherence-screening">
-      <legend>
-        <strong>Offence Report Details</strong>
-      </legend>
-      <table class="simple-table" id="Checklist-tbl1">
-        <tr>
-          <td>OB Number</td>
-          <td><obs required="true" conceptId="167133" size="50"/></td>
-          <td>Police Station Reported to</td>
-          <td><obs required="true" conceptId="165262" size="50"/></td>
-          <td>Name of the perpetrator</td>
-          <td><obs required="true" conceptId="165230" size="50"/></td>
-        </tr>
-        <tr>
-          <td>Investigating officer</td>
-          <td><obs required="true" conceptId="167018" size="50"/></td>
-          <td>Phone number (for the Investigating officer)</td>
-          <td><obs required="true" conceptId="163152" size="50"/></td>
-        </tr>
-      </table>
-    </fieldset>
-
-
     <!--ACtion-->
     <fieldset id="Assesment-tab4">
       <legend>
-        <strong>Nature of Action taken</strong>
+        <strong>Violence and Action Taken</strong>
       </legend>
       <table class="simple-table" id="adherence-1">
+        <tr>
+          <td>
+          <td>
+            Type of Violence &nbsp; <obs conceptId="165205"
+                                                   answerLabels="Physical Violence,Intimate Partner Violence,Sexual Violence,Perpetrator"
+                                                   answerConceptIds="158358,167243,152370,165229"
+                                                   style="dropdown"
+                                                   id="gbv-indication"
+                                                   required="true"/>
+          </td>
+          </td>
+        </tr>
         <tr>
           <td size="40">Nature of Action taken <span style="color:red;"><strong>*</strong></span></td>
           <td>
@@ -148,6 +137,8 @@
             <obs  conceptId="165205" answerLabel="Settled out of court" answerConceptId="127910" style="checkbox" /><br></br>
             <obs  conceptId="165205" answerLabel="Alternative justice system" answerConceptId="126582" style="checkbox" /><br></br>
             <obs  conceptId="165205" answerLabel="Conviction" answerConceptId="147944" style="checkbox" /><br></br>
+            <obs  conceptId="165205" answerLabel="Acquittal" answerConceptId="167326" style="checkbox" /><br></br>
+            <obs  conceptId="165205" answerLabel="Evidence Collected" answerConceptId="162614" style="checkbox" /><br></br>
             <obs  conceptId="165205" answerLabel="Unreported case" answerConceptId="161638" style="checkbox" /><br></br>
           </td>
         </tr>

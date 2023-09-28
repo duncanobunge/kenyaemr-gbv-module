@@ -127,7 +127,7 @@ public class ExampleMetadata extends AbstractMetadataBundle {
 
 		  //GBVTRIAGEFORM
 		  install(encounterType("GBVTRIAGEFORM Encounter", "GBVTRIAGEFORM Encounter", _EncounterType.GBVTRIAGEFORM));
-		  install(form("TRIAGE Form", null, _EncounterType.GBVTRIAGEFORM, "1", _Form.GBVTRIAGEFORM));
+		  install(form("Triage Form", null, _EncounterType.GBVTRIAGEFORM, "1", _Form.GBVTRIAGEFORM));
   
 
        //GBVADDITIONALNOTESFORM
@@ -170,7 +170,7 @@ public class ExampleMetadata extends AbstractMetadataBundle {
 
 		//GBVTRAUMACOUNSELLINGFORM
 		install(encounterType("GBV Trauma Counselling", "GBVTRAUMACOUNSELLINGFORM Encounter", _EncounterType.GBVTRAUMACOUNSELLINGFORM));
-		install(form("SGBV TRAUMA COUNSELLING Form", null, _EncounterType.GBVTRAUMACOUNSELLINGFORM, "1", _Form.GBVTRAUMACOUNSELLINGFORM));
+		install(form("TRAUMA COUNSELLING Form", null, _EncounterType.GBVTRAUMACOUNSELLINGFORM, "1", _Form.GBVTRAUMACOUNSELLINGFORM));
 
 		//GBVPOSTRAPECAREFORM
 		install(encounterType("GBV Post Rape Care", "GBVPOSTRAPECAREFORM Encounter", _EncounterType.GBVPOSTRAPECAREFORM));

@@ -40,8 +40,16 @@
 				<ref bean="gbv.form.gbvlinkageform" />
 				<ref bean="gbv.form.gbvlegalform" />
 				<ref bean="gbv.form.gbvadditionalnoteform" />
+
 			</set>
 		</property>
+		 <property name="fragments">
+            <map>
+                <entry key="enrollment-summary" value="gbv:program/gbv/GbvEnrollmentSummary"/>
+                <entry key="care-panel" value="gbv:program/gbv/GbvCarePanel"/>
+                <entry key="completion-summary" value="gbv:program/gbv/GbvOutcomeSummary"/>
+            </map>
+        </property>
 		<property name="reports">
 			<set>
 				<ref bean="kenyaemr.gbv.enrollment.report" />
@@ -436,6 +444,7 @@
 		<property name="targetUuid" value="9ba1d4aa-57d7-48f9-a635-a23508e8136c" />
 		<property name="apps">
 			<set>
+				<ref bean="gbv.app.home" />
 				<ref bean="kenyaemr.app.registration" />
 				<ref bean="kenyaemr.app.intake" />
 				<ref bean="kenyaemr.app.prep" />
